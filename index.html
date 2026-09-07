@@ -12,23 +12,23 @@
 <meta property="og:locale" content="sr_RS">
 <!-- TODO: kad sajt bude na svom domenu, dodaj <meta property="og:url" content="https://budinbarrel.com/"> -->
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23170a10' stroke='%23b8933d' stroke-width='3'/%3E%3Ctext x='32' y='41' font-family='Georgia,serif' font-size='24' fill='%23cca94f' text-anchor='middle'%3EBB%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23241019' stroke='%23c39d4e' stroke-width='3'/%3E%3Ctext x='32' y='41' font-family='Georgia,serif' font-size='24' fill='%23d8ba6c' text-anchor='middle'%3EBB%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
-    --plum-950:#170a10;
-    --plum-900:#2a1220;
-    --plum-800:#40192b;
-    --gold-500:#b8933d;
-    --gold-400:#cca94f;
-    --cream-100:#f3ead4;
-    --cream-200:#ece0c4;
-    --oak-700:#5a3a22;
-    --ink-900:#211a14;
-    --seal-700:#6e1f2a;
-    --line:rgba(184,147,61,0.35);
+    --plum-950:#241019;
+    --plum-900:#391c2f;
+    --plum-800:#522840;
+    --gold-500:#c39d4e;
+    --gold-400:#d8ba6c;
+    --cream-100:#f8f1de;
+    --cream-200:#f1e6c9;
+    --oak-700:#6b4527;
+    --ink-900:#2a2015;
+    --seal-700:#7c2536;
+    --line:rgba(195,157,78,0.35);
   }
   .grain{position:relative;}
   .grain::before{
@@ -41,6 +41,7 @@
   html{scroll-behavior:smooth;}
   body{
     margin:0;
+    overflow-x:hidden;
     background:var(--cream-100);
     color:var(--ink-900);
     font-family:'EB Garamond', Georgia, serif;
@@ -81,10 +82,7 @@ html[data-lang="en"] [data-en-block]{
   display:block !important;
 }
  .lang-switch{
-  position:fixed;
-  top:22px;
-  right:28px;
-  z-index:50;
+    flex:none;
     background:var(--plum-900); border:1px solid var(--gold-500);
     border-radius:40px; display:flex; overflow:hidden;
     font-family:'Cinzel',serif; font-size:12px; letter-spacing:0.08em;
@@ -119,6 +117,7 @@ html[data-lang="en"] [data-en-block]{
   display:flex;
   align-items:center;
   gap:16px;
+  min-width:0;
 }
 
 .brandmark span{
@@ -131,6 +130,7 @@ html[data-lang="en"] [data-en-block]{
     0 0 18px rgba(0,0,0,.35),
     0 2px 12px rgba(0,0,0,.35);
   white-space:nowrap;
+  min-width:0;
 }
 
 header.top.scrolled .brandmark span{
@@ -143,6 +143,7 @@ header.top.scrolled .brandmark span{
   margin-left:auto;
 }
 nav.top-links a{
+  position:relative;
   color:rgba(243,234,212,.92) !important;
   text-decoration:none;
   font-family:'Cinzel',serif;
@@ -160,40 +161,92 @@ nav.top-links a{
   }
   nav.top-links a:hover::after{right:0;}
 
+  .header-actions{
+    display:flex; align-items:center; gap:18px;
+  }
+
+  /* ---- mobile menu toggle ---- */
+  .menu-toggle{
+    display:none;
+    background:none; border:none; cursor:pointer; padding:0;
+    width:40px; height:40px; flex:none;
+    flex-direction:column; align-items:center; justify-content:center;
+    gap:5px;
+  }
+  .menu-toggle span{
+    display:block; height:2.5px; width:22px; background:var(--cream-100);
+    border-radius:2px;
+    transition:transform .3s ease, opacity .3s ease;
+  }
+  .menu-toggle.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg);}
+  .menu-toggle.open span:nth-child(2){opacity:0;}
+  .menu-toggle.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg);}
+
+  .mobile-menu{
+    display:none;
+    position:fixed; top:0; left:0; right:0; z-index:39;
+    background:rgba(23,10,16,0.97); backdrop-filter:blur(10px);
+    padding:104px 28px 40px; flex-direction:column; gap:24px;
+    transform:translateY(-100%); transition:transform .35s ease;
+  }
+  .mobile-menu.open{transform:translateY(0);}
+  .mobile-menu a{
+    font-family:'Cinzel',serif; font-size:17px; letter-spacing:.08em;
+    color:var(--cream-100); text-decoration:none; border-bottom:1px solid rgba(184,147,61,0.25);
+    padding-bottom:14px;
+  }
+  .mobile-menu a.mobile-cta{
+    margin-top:8px; text-align:center; border:1px solid var(--gold-500);
+    border-bottom:1px solid var(--gold-500); background:var(--gold-500); color:var(--plum-950);
+    padding:16px; border-radius:2px;
+  }
+
   @media (max-width:720px){
 
+  .menu-toggle{display:flex;}
+  .mobile-menu{display:flex;}
+
   .top .wrap{
-    gap:12px;
+    gap:8px;
   }
 
   .logo-slot{
-    height:36px;
-    width:36px;
+    height:34px;
+    width:34px;
+  }
+
+  .brandmark{
+    gap:10px;
   }
 
   .brandmark span{
     display:block;
-    font-size:16px;
-    letter-spacing:.04em;
+    white-space:normal;
+    max-width:118px;
+    font-size:13px;
+    line-height:1.2;
+    letter-spacing:.03em;
   }
 
   header.top.scrolled .brandmark span{
-    font-size:15px;
+    font-size:12.5px;
   }
 
   nav.top-links{
-    gap:0;
-  }
-
-  nav.top-links a:not(.nav-cta){
     display:none;
   }
 
+  .header-actions{
+    margin-left:auto;
+    gap:8px;
+  }
+
   .lang-switch{
-    top:12px;
-    right:12px;
-    transform:scale(.9);
-    transform-origin:top right;
+    font-size:10px;
+  }
+
+  .lang-switch button{
+    padding:6px 10px;
   }
 
 }
@@ -224,7 +277,7 @@ nav.top-links a{
   }
   .hero .wrap{
     display:grid; grid-template-columns:1.05fr 0.95fr; align-items:center;
-    gap:40px; padding-top:150px; padding-bottom:70px; position:relative; z-index:2;
+    gap:40px; padding-top:118px; padding-bottom:70px; position:relative; z-index:2;
   }
   .hero h1{
     font-size:clamp(34px, 5vw, 58px); line-height:1.08; color:rgba(243,234,212,0.9);
@@ -249,15 +302,26 @@ nav.top-links a{
     border-radius:3px; box-shadow:0 30px 60px -20px rgba(0,0,0,0.6);
   }
   .hero .figure .seal{
-    position:absolute; bottom:-22px; left:-22px; width:96px; height:96px;
-    background:var(--seal-700); border-radius:50%; display:flex; align-items:center;
-    justify-content:center; text-align:center; color:var(--cream-100);
-    font-family:'Cinzel',serif; font-size:10.5px; letter-spacing:0.06em;
-    box-shadow:0 10px 24px rgba(0,0,0,0.4); border:1px solid rgba(204,169,79,0.6);
-    padding:8px;
+    position:absolute; bottom:-26px; left:-26px; width:104px; height:104px;
+    background:var(--plum-950);
+    border-radius:50%; display:flex; flex-direction:column; align-items:center;
+    justify-content:center; text-align:center; color:var(--gold-400);
+    font-family:'Cinzel',serif; letter-spacing:0.07em;
+    box-shadow:0 14px 32px rgba(0,0,0,0.45); border:1px solid var(--gold-500);
+    padding:10px;
+  }
+  .hero .figure .seal::before{
+    content:''; position:absolute; inset:6px;
+    border:1px solid rgba(204,169,79,0.35); border-radius:50%;
+  }
+  .hero .figure .seal .seal-year{
+    font-size:19px; font-weight:700; color:var(--cream-100); line-height:1; margin-bottom:5px;
+  }
+  .hero .figure .seal .seal-label{
+    font-size:8.5px; line-height:1.35;
   }
   @media (max-width:860px){
-    .hero .wrap{grid-template-columns:1fr; padding-top:120px;}
+    .hero .wrap{grid-template-columns:1fr; padding-top:96px;}
     .hero .figure{max-width:340px; margin:0 auto;}
   }
 
@@ -416,7 +480,7 @@ nav.top-links a{
     border:none; padding:15px 34px; font-family:'Cinzel',serif; font-size:13.5px;
     letter-spacing:0.08em; border-radius:2px; cursor:pointer;
   }
-  .submit-btn:hover{background:#8a2734;}
+  .submit-btn:hover{background:#96354a;}
   .form-note{font-size:14px; color:#6b5c44; margin-top:-6px;}
   @media (max-width:860px){ .order .grid{grid-template-columns:1fr;} .two-col{grid-template-columns:1fr;} form.order-form{padding:26px;} }
 
@@ -511,11 +575,6 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
 
 <div class="scroll-progress" id="scroll-progress"></div>
 
-<div class="lang-switch">
-  <button type="button" data-set-lang="sr" class="active">SR</button>
-  <button type="button" data-set-lang="en">EN</button>
-</div>
-
 <header class="top">
   <div class="wrap">
 
@@ -536,7 +595,27 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
       <a href="#poruci" class="nav-cta" data-en>Shop</a>
     </nav>
 
+    <div class="header-actions">
+      <div class="lang-switch">
+        <button type="button" data-set-lang="sr" class="active">SR</button>
+        <button type="button" data-set-lang="en">EN</button>
+      </div>
+
+      <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Meni" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
   </div>
+
+  <nav class="mobile-menu" id="mobile-menu">
+    <a href="#prica" data-sr>O nama</a>
+    <a href="#prica" data-en>Our Story</a>
+    <a href="#proizvodi" data-sr>Proizvodi</a>
+    <a href="#proizvodi" data-en>Products</a>
+    <a href="#poruci" class="mobile-cta" data-sr>Poruči</a>
+    <a href="#poruci" class="mobile-cta" data-en>Order</a>
+  </nav>
 </header>
 
 <section class="hero grain" id="pocetna">
@@ -563,7 +642,11 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
     </div>
     <div class="figure">
       <div class="img-slot" data-label="HERO - flaša ispred bureta" style="background-image:url('images/hero.jpg');"></div>
-      <div class="seal"><span data-sr>Originalna receptura · od 2019</span><span data-en>Original recipe · est. 2025</span></div>
+      <div class="seal">
+        <span class="seal-year">2019</span>
+        <span class="seal-label" data-sr>Originalna receptura</span>
+        <span class="seal-label" data-en>Original recipe</span>
+      </div>
     </div>
   </div>
 </section>
@@ -963,6 +1046,31 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
       }
     });
   });
+  /* mobile menu */
+  (function(){
+    var toggle = document.getElementById('menu-toggle');
+    var menu = document.getElementById('mobile-menu');
+    function closeMenu(){
+      toggle.classList.remove('open');
+      menu.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+    function openMenu(){
+      toggle.classList.add('open');
+      menu.classList.add('open');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+    toggle.addEventListener('click', function(){
+      if (menu.classList.contains('open')) { closeMenu(); } else { openMenu(); }
+    });
+    menu.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', closeMenu);
+    });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape') { closeMenu(); }
+    });
+  })();
+
   /* age gate */
   (function(){
     var gate = document.getElementById('age-gate');
