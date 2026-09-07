@@ -114,9 +114,13 @@ html[data-lang="en"] [data-en-block]{
   nav.top-links a:hover::after{right:0;}
 @media (max-width:720px){
 
+  .brandmark span{
+    display:none;
+  }
+
   nav.top-links{
     display:flex;
-    gap:10px;
+    margin-right:90px;
   }
 
   nav.top-links a:not(.nav-cta){
@@ -124,9 +128,18 @@ html[data-lang="en"] [data-en-block]{
   }
 
   .nav-cta{
-    padding:8px 14px;
-    font-size:11px;
+    padding:8px 12px;
+    font-size:10px;
   }
+
+  .lang-switch{
+    top:12px;
+    right:12px;
+    transform:scale(0.88);
+    transform-origin:top right;
+  }
+
+}
 
 }
   /* ---- reveal on scroll ---- */
