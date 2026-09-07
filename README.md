@@ -1,6 +1,6 @@
-# 🥃 Budin Barrel — Vasiljević Distillery
+# Budin Barrel - Vasiljević Distillery
 
-Premium bilingual landing page for **Budin Barrel**, a Serbian craft rakija brand produced by **Vasiljević Distillery**.
+Premium portfolio page for **Budin Barrel**, a Serbian craft rakija brand produced by **Vasiljević Distillery**.
 
 The website is designed to present the distillery's heritage, production process, product portfolio, and ordering system through an elegant luxury-inspired user experience.
 
