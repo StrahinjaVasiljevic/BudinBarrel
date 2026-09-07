@@ -8,7 +8,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Budin Barrel — Destilerija Vasiljević">
 <meta property="og:description" content="Porodična rakija destilerija iz Smedereva. Rakija koja vraća u doba Nemanjića.">
-<meta property="og:image" content="images/hero.jpg.png">
+<meta property="og:image" content="images/hero.jpg">
 <meta property="og:locale" content="sr_RS">
 <!-- TODO: kad sajt bude na svom domenu, dodaj <meta property="og:url" content="https://budinbarrel.com/"> -->
 <meta name="twitter:card" content="summary_large_image">
@@ -484,6 +484,19 @@ nav.top-links a{
   .form-note{font-size:14px; color:#6b5c44; margin-top:-6px;}
   @media (max-width:860px){ .order .grid{grid-template-columns:1fr;} .two-col{grid-template-columns:1fr;} form.order-form{padding:26px;} }
 
+  /* ---- form submit states ---- */
+  .submit-btn[disabled]{opacity:0.6; cursor:not-allowed;}
+  .form-status{
+    display:none; padding:16px 18px; border-radius:2px; font-family:'EB Garamond',serif;
+    font-size:16px; line-height:1.5;
+  }
+  .form-status.visible{display:block;}
+  .form-status.success{background:rgba(76,120,74,0.12); border:1px solid #4c784a; color:#2e4d2c;}
+  .form-status.error{background:rgba(124,37,54,0.1); border:1px solid var(--seal-700); color:var(--seal-700);}
+  form.order-form.is-hidden{display:none;}
+  .order .grid #form-success, .order .grid #form-error{grid-column:2; margin-top:-20px;}
+  @media (max-width:860px){ .order .grid #form-success, .order .grid #form-error{grid-column:1;} }
+
   /* ---- image placeholder slots ---- */
   .img-slot{
     background-color:rgba(184,147,61,0.14);
@@ -641,7 +654,7 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
       </div>
     </div>
     <div class="figure">
-      <div class="img-slot" data-label="HERO - flaša ispred bureta" style="background-image:url('images/hero.jpg.png');"></div>
+      <div class="img-slot" data-label="HERO - flaša ispred bureta" style="background-image:url('images/hero.jpg');"></div>
       <div class="seal">
         <span class="seal-year">2019</span>
         <span class="seal-label" data-sr>Originalna receptura</span>
@@ -947,6 +960,15 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
       <button class="submit-btn" type="submit" data-sr>Pošalji porudžbinu</button>
       <button class="submit-btn" type="submit" data-en>Send order</button>
     </form>
+
+    <div class="form-status success" id="form-success" role="status">
+      <span data-sr>✓ Hvala! Vaša porudžbina je primljena — javićemo Vam se uskoro radi potvrde.</span>
+      <span data-en>✓ Thank you! Your order has been received — we'll be in touch shortly to confirm.</span>
+    </div>
+    <div class="form-status error" id="form-error" role="alert">
+      <span data-sr>Nešto nije u redu. Molimo pokušajte ponovo ili nas pozovite na +381 64 122 04 29.</span>
+      <span data-en>Something went wrong. Please try again or call us at +381 64 122 04 29.</span>
+    </div>
   </div>
 </section>
 
@@ -990,6 +1012,51 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
       }
     });
   });
+
+  /* order form: submit via fetch to Netlify Forms, no page reload */
+  (function(){
+    var form = document.querySelector('form.order-form');
+    if (!form) return;
+    var successBox = document.getElementById('form-success');
+    var errorBox = document.getElementById('form-error');
+    var submitBtns = form.querySelectorAll('.submit-btn');
+
+    function encode(data) {
+      return Object.keys(data).map(function(key){
+        return encodeURIComponent(key) + '=' + encodeURIComponent(data[key]);
+      }).join('&');
+    }
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      errorBox.classList.remove('visible');
+      successBox.classList.remove('visible');
+      submitBtns.forEach(function(b){ b.disabled = true; });
+
+      var formData = new FormData(form);
+      var payload = {};
+      formData.forEach(function(value, key){ payload[key] = value; });
+
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encode(payload)
+      }).then(function(response){
+        if (response.ok) {
+          form.reset();
+          addressBlock.classList.remove('show');
+          form.classList.add('is-hidden');
+          successBox.classList.add('visible');
+          successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          throw new Error('Bad response: ' + response.status);
+        }
+      }).catch(function(){
+        errorBox.classList.add('visible');
+        submitBtns.forEach(function(b){ b.disabled = false; });
+      });
+    });
+  })();
 
   document.querySelectorAll('[data-set-lang]').forEach(function(btn){
     btn.addEventListener('click', function(){
