@@ -48,12 +48,22 @@
   a{color:inherit;}
   .wrap{max-width:1120px;margin:0 auto;padding:0 28px;}
 
-  /* ---- lang toggle ---- */
-  [data-en]{display:none;}
-  html[data-lang="en"] [data-sr]{display:none;}
-  html[data-lang="en"] [data-en]{display:inline;}
-  html[data-lang="en"] [data-en-block]{display:block;}
+ /* ---- lang toggle ---- */
+[data-en]{
+  display:none !important;
+}
 
+html[data-lang="en"] [data-sr]{
+  display:none !important;
+}
+
+html[data-lang="en"] [data-en]{
+  display:inline !important;
+}
+
+html[data-lang="en"] [data-en-block]{
+  display:block !important;
+}
   .lang-switch{
     position:fixed; top:18px; right:18px; z-index:50;
     background:var(--plum-900); border:1px solid var(--gold-500);
