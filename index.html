@@ -143,10 +143,18 @@ header.top.scrolled .brandmark img{
   gap:28px;
   margin-left:auto;
 }
-  nav.top-links a{
-    color:var(--cream-200); text-decoration:none; font-family:'Cinzel',serif;
-    font-size:12.5px; letter-spacing:0.1em; position:relative; padding-bottom:4px;
-  }
+nav.top-links a{
+  color:rgba(243,234,212,.92);
+  text-decoration:none;
+  font-family:'Cinzel',serif;
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:.08em;
+  text-shadow:
+    0 0 18px rgba(0,0,0,.35),
+    0 2px 12px rgba(0,0,0,.35);
+}
+
   nav.top-links a::after{
     content:""; position:absolute; left:0; right:100%; bottom:0; height:1px;
     background:var(--gold-400); transition:right .3s ease;
