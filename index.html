@@ -99,9 +99,22 @@ html[data-lang="en"] [data-en-block]{
   justify-content:space-between;
   min-height:64px;
 }
-  .brandmark{display:flex; align-items:center; gap:16px;}
-  .brandmark img{height:44px; width:auto; transition:height .3s ease;}
-  header.top.scrolled .brandmark img{height:34px;}
+.brandmark{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+.brandmark img{
+  height:56px;
+  width:auto;
+  display:block;
+  transition:height .3s ease;
+}
+
+header.top.scrolled .brandmark img{
+  height:48px;
+}
 .brandmark span{
   font-family:'Cinzel',serif;
  color:var(--cream-100) !important;
