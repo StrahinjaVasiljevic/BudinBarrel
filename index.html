@@ -112,18 +112,7 @@ html[data-lang="en"] [data-en-block]{
   gap:16px;
 }
 
-.brandmark img{
-  height:56px;
-  width:auto;
-  display:block;
-  transition:height .3s ease;
-}
-
-header.top.scrolled .brandmark img{
-  height:48px;
-}
 .brandmark span{
-  display:inline-block !important;
   font-family:'Cinzel', serif;
   font-size:28px;
   font-weight:600;
@@ -168,8 +157,9 @@ nav.top-links a{
     gap:12px;
   }
 
-  .brandmark img{
-    height:42px;
+  .logo-slot{
+    height:36px;
+    width:36px;
   }
 
   .brandmark span{
@@ -183,6 +173,10 @@ nav.top-links a{
   }
 
   nav.top-links{
+    gap:0;
+  }
+
+  nav.top-links a:not(.nav-cta){
     display:none;
   }
 
@@ -446,8 +440,8 @@ nav.top-links a{
   footer{background:var(--plum-950); color:var(--cream-200); padding:56px 0 30px;}
   footer .grid{display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:40px;}
   footer .brandmark .img-slot{height:52px; width:52px;}
-.logo-slot{ height:44px; width:auto; border:none; background:none;}
-header.top.scrolled .logo-slot{height:34px;}
+.logo-slot{ height:44px; width:44px; flex:none; border:none; background-color:transparent; background-size:contain; background-repeat:no-repeat; background-position:center;}
+header.top.scrolled .logo-slot{height:34px; width:34px;}
   .hero .figure .img-slot{aspect-ratio:4/5; box-shadow:0 30px 60px -20px rgba(0,0,0,0.6);}
   .story .grid .img-slot{aspect-ratio:4/5;}
   .heritage .grid .img-slot{aspect-ratio:4/3;}
@@ -475,17 +469,21 @@ header.top.scrolled .logo-slot{height:34px;}
 <header class="top">
   <div class="wrap">
 
-    <a href="#pocetna" class="brandmark" aria-span data-sr>DESTILERIJA VASILJEVIĆ</span>
+    <a href="#pocetna" class="brandmark">
+      <div class="img-slot logo-slot" data-label="" style="background-image:url('images/logo.png.png');"></div>
+      <span data-sr>DESTILERIJA VASILJEVIĆ</span>
       <span data-en>VASILJEVIĆ DISTILLERY</span>
     </a>
 
     <nav class="top-links">
-      <a href="#prica" data-sr>O nama<ry</a>
+      <a href="#prica" data-sr>O nama</a>
+      <a href="#prica" data-en>Our Story</a>
 
-      <a href="#proizvodi</a>
-      <aroizvodiProducts</a>
+      <a href="#proizvodi" data-sr>Proizvodi</a>
+      <a href="#proizvodi" data-en>Products</a>
 
-      <a href="#poruci" class="navoruciShop</a>
+      <a href="#poruci" class="nav-cta" data-sr>Poruči</a>
+      <a href="#poruci" class="nav-cta" data-en>Shop</a>
     </nav>
 
   </div>
@@ -494,6 +492,7 @@ header.top.scrolled .logo-slot{height:34px;}
 <section class="hero grain" id="pocetna">
   <div class="wrap">
     <div class="hero-copy">
+      <span class="kicker" data-sr>DESTILERIJA VASILJEVIĆ · SMEDEREVO</span>
       <span class="kicker" data-en>VASILJEVIĆ DISTILLERY · SMEDEREVO</span>
       <h1 data-sr>Rakija koja vraća u doba Nemanjića!</h1>
       <h1 data-en>Brandy that brings back the age of the Nemanjić!</h1>
