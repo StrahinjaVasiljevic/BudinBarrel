@@ -93,7 +93,12 @@ html[data-lang="en"] [data-en-block]{
     background:rgba(23,10,16,0.92); backdrop-filter:blur(8px);
     padding:13px 0; box-shadow:0 10px 26px rgba(0,0,0,0.35);
   }
-  .top .wrap{display:flex; align-items:center; justify-content:space-between;}
+  .top .wrap{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  min-height:64px;
+}
   .brandmark{display:flex; align-items:center; gap:12px;}
   .brandmark img{height:44px; width:auto; transition:height .3s ease;}
   header.top.scrolled .brandmark img{height:34px;}
