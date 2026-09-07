@@ -108,7 +108,23 @@ html[data-lang="en"] [data-en-block]{
     background:var(--gold-400); transition:right .3s ease;
   }
   nav.top-links a:hover::after{right:0;}
+@media (max-width:720px){
 
+  nav.top-links{
+    display:flex;
+    gap:10px;
+  }
+
+  nav.top-links a:not(.nav-cta){
+    display:none;
+  }
+
+  .nav-cta{
+    padding:8px 14px;
+    font-size:11px;
+  }
+
+}
   /* ---- reveal on scroll ---- */
   .reveal{opacity:0; transform:translateY(26px); transition:opacity .8s ease, transform .8s ease;}
   .reveal.is-visible{opacity:1; transform:none;}
