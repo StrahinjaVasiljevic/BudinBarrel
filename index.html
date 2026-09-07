@@ -4,6 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Budin Barrel Vasiljević Distillery</title>
+<meta name="description" content="Budin Barrel — porodična rakija destilerija Vasiljević iz Smedereva. Šljivovica, kajsija i rakija od suve šljive, spravljene tradicionalnom recepturom i odležale u hrastovim buradima.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Budin Barrel — Destilerija Vasiljević">
+<meta property="og:description" content="Porodična rakija destilerija iz Smedereva. Rakija koja vraća u doba Nemanjića.">
+<meta property="og:image" content="images/hero.jpg">
+<meta property="og:locale" content="sr_RS">
+<!-- TODO: kad sajt bude na svom domenu, dodaj <meta property="og:url" content="https://budinbarrel.com/"> -->
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23170a10' stroke='%23b8933d' stroke-width='3'/%3E%3Ctext x='32' y='41' font-family='Georgia,serif' font-size='24' fill='%23cca94f' text-anchor='middle'%3EBB%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -455,9 +464,50 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
     font-size:13.5px; color:#a99a80;
   }
   @media (max-width:720px){ footer .grid{grid-template-columns:1fr; gap:28px;} }
+
+  /* ---- age gate ---- */
+  .age-gate{
+    position:fixed; inset:0; z-index:100;
+    background:radial-gradient(ellipse at center, var(--plum-900) 0%, var(--plum-950) 100%);
+    display:flex; align-items:center; justify-content:center; padding:24px;
+  }
+  .age-gate[hidden]{display:none;}
+  .age-gate .panel{
+    max-width:420px; width:100%; text-align:center;
+    background:rgba(23,10,16,0.7); border:1px solid var(--gold-500); border-radius:3px;
+    padding:44px 34px; color:var(--cream-100);
+    box-shadow:0 30px 70px -20px rgba(0,0,0,0.7);
+  }
+  .age-gate .seal-mark{
+    font-family:'Cinzel',serif; font-size:13px; letter-spacing:0.22em; color:var(--gold-400);
+    margin-bottom:18px; display:block;
+  }
+  .age-gate h2{font-size:clamp(22px,3vw,28px); color:var(--cream-100);}
+  .age-gate p{margin-top:16px; font-size:16px; color:var(--cream-200);}
+  .age-gate .rule{margin:22px auto;}
+  .age-gate .actions{margin-top:28px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+  .age-gate .btn{border:none; cursor:pointer;}
+  .age-gate .btn.outline{border:1px solid var(--gold-500);}
 </style>
 </head>
 <body>
+
+<div class="age-gate" id="age-gate" hidden>
+  <div class="panel">
+    <span class="seal-mark">BUDIN BARREL</span>
+    <h2 data-sr>Da li imate 18 godina?</h2>
+    <h2 data-en>Are you 18 or older?</h2>
+    <div class="rule"></div>
+    <p data-sr>Ovaj sajt sadrži informacije o alkoholnim pićima. Prodaja je isključivo licima starijim od 18 godina.</p>
+    <p data-en>This site contains information about alcoholic beverages. Sales are restricted to persons 18 years and older.</p>
+    <div class="actions">
+      <button type="button" class="btn solid age-yes" data-sr>Da, imam 18+</button>
+      <button type="button" class="btn solid age-yes" data-en>Yes, I'm 18+</button>
+      <button type="button" class="btn outline age-no" data-sr>Ne</button>
+      <button type="button" class="btn outline age-no" data-en>No</button>
+    </div>
+  </div>
+</div>
 
 <div class="scroll-progress" id="scroll-progress"></div>
 
@@ -913,6 +963,34 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
       }
     });
   });
+  /* age gate */
+  (function(){
+    var gate = document.getElementById('age-gate');
+    var KEY = 'bb-age-verified';
+    try {
+      if (localStorage.getItem(KEY) === '1') {
+        gate.hidden = true;
+      } else {
+        gate.hidden = false;
+        document.body.style.overflow = 'hidden';
+      }
+    } catch (e) {
+      gate.hidden = false;
+      document.body.style.overflow = 'hidden';
+    }
+    document.querySelectorAll('.age-yes').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        try { localStorage.setItem(KEY, '1'); } catch (e) {}
+        gate.hidden = true;
+        document.body.style.overflow = '';
+      });
+    });
+    document.querySelectorAll('.age-no').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        window.location.href = 'https://www.google.com';
+      });
+    });
+  })();
 </script>
 
 </body>
