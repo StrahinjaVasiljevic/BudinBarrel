@@ -57,9 +57,16 @@
     letter-spacing:0.02em;
     margin:0;
   }
+  h1,h2,h3,p,span,div,a,label,button{
+    overflow-wrap:break-word;
+    word-break:break-word;
+  }
   img{max-width:100%;display:block;}
   a{color:inherit;}
   .wrap{max-width:1120px;margin:0 auto;padding:0 28px;}
+  @media (max-width:480px){
+    .wrap{padding:0 20px;}
+  }
 
  /* ---- lang toggle ---- */
 [data-en]{
@@ -335,6 +342,14 @@ nav.top-links a{
     .hero .wrap{grid-template-columns:1fr; padding-top:96px;}
     .hero .figure{max-width:380px; margin:0 auto;}
   }
+  @media (max-width:480px){
+    .hero .figure{max-width:260px;}
+    .hero .figure .seal{
+      width:78px; height:78px; bottom:-10px; left:-6px; padding:6px;
+    }
+    .hero .figure .seal .seal-year{font-size:15px; margin-bottom:3px;}
+    .hero .figure .seal .seal-label{font-size:7px; line-height:1.25;}
+  }
 
   /* ---- fruit segments ---- */
   .fruit-row{
@@ -403,8 +418,13 @@ nav.top-links a{
   }
   .feature-panel.panel-right{margin-left:auto;}
   @media (max-width:720px){
-    .bg-feature{min-height:520px; padding:60px 0;}
-    .feature-panel{padding:30px 26px; max-width:100%;}
+    .bg-feature{min-height:480px; padding:56px 0; background-position:center top;}
+    .feature-panel{padding:26px 22px; max-width:100%;}
+  }
+  @media (max-width:480px){
+    .bg-feature{min-height:420px;}
+    .feature-panel h2{font-size:24px;}
+    .feature-panel p{font-size:16px;}
   }
 
   /* ---- products ---- */
@@ -420,7 +440,7 @@ nav.top-links a{
 
   /* ---- flip cards ---- */
   .flip-card{
-    perspective:1400px; cursor:pointer; height:500px; outline:none;
+    perspective:1400px; cursor:pointer; height:530px; outline:none;
     box-shadow:0 14px 34px -18px rgba(58,42,34,0.28);
     border:1px solid var(--gold-500);
     border-radius:4px;
@@ -449,6 +469,14 @@ nav.top-links a{
   .flip-front .specs{
     margin-top:10px; font-size:14.5px; color:var(--ink-900); opacity:0.7; font-family:'EB Garamond',serif;
   }
+  .flip-front .price{
+    margin-top:8px; font-family:'Cinzel',serif; font-size:17px; font-weight:600;
+    color:var(--plum-900); letter-spacing:0.03em;
+  }
+  .flip-back .price{
+    margin-top:6px; font-family:'Cinzel',serif; font-size:16px; font-weight:600;
+    color:var(--plum-900); letter-spacing:0.03em; display:block;
+  }
   .flip-hint{
     display:block; margin-top:16px; font-family:'Cinzel',serif; font-size:11px; letter-spacing:0.08em;
     color:var(--oak-700);
@@ -466,7 +494,7 @@ nav.top-links a{
     background:transparent;
   }
   .flip-back .status:hover{background:var(--plum-900); color:var(--cream-100);}
-  @media (max-width:860px){ .prod-grid{grid-template-columns:1fr; gap:22px;} .flip-card{height:460px;} .flip-front .img-slot{height:260px;} }
+  @media (max-width:860px){ .prod-grid{grid-template-columns:1fr; gap:22px;} .flip-card{height:500px;} .flip-front .img-slot{height:260px;} }
 
   /* ---- order ---- */
   .order{background:var(--cream-200);}
@@ -538,6 +566,121 @@ nav.top-links a{
   .nav-cta::after{display:none !important;}
   .nav-cta:hover{background:var(--gold-400) !important;}
 
+  /* ---- cart link + badges ---- */
+  .cart-link{position:relative; padding-right:4px;}
+  .cart-badge{
+    display:inline-flex; align-items:center; justify-content:center;
+    min-width:18px; height:18px; padding:0 4px; margin-left:6px;
+    background:var(--gold-500); color:var(--plum-950); border-radius:20px;
+    font-family:'Cinzel',serif; font-size:10.5px; font-weight:700; vertical-align:2px;
+  }
+  .cart-link::after{display:none !important;}
+  .mobile-menu .cart-link{border-bottom:1px solid rgba(194,154,82,0.25); padding-bottom:14px;}
+  .menu-toggle{position:relative;}
+  .menu-toggle .hamburger-badge{
+    position:absolute; top:-6px; right:-8px; margin-left:0;
+    min-width:16px; height:16px; font-size:9.5px; background:var(--gold-500); color:var(--plum-950);
+  }
+
+  /* ---- cart drawer ---- */
+  .cart-overlay{
+    position:fixed; inset:0; background:rgba(28,14,24,0.55); z-index:59;
+    opacity:0; pointer-events:none; transition:opacity .3s ease;
+  }
+  .cart-overlay.open{opacity:1; pointer-events:auto;}
+  .cart-drawer{
+    position:fixed; top:0; right:0; bottom:0; z-index:60;
+    width:min(400px, 92vw); background:var(--cream-100); color:var(--ink-900);
+    box-shadow:-24px 0 60px rgba(0,0,0,0.35);
+    display:flex; flex-direction:column;
+    transform:translateX(100%); transition:transform .35s ease;
+  }
+  .cart-drawer.open{transform:translateX(0);}
+  .cart-drawer-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 24px; border-bottom:1px solid var(--line); background:var(--plum-900); color:var(--cream-100);
+  }
+  .cart-drawer-head h3{font-size:19px; color:var(--cream-100);}
+  .cart-close{
+    background:none; border:none; color:var(--cream-100); font-size:26px; line-height:1;
+    cursor:pointer; padding:2px 6px;
+  }
+  .cart-items{flex:1; overflow-y:auto; padding:18px 24px;}
+  .cart-item{
+    display:grid; grid-template-columns:1fr auto; gap:4px 14px; align-items:center;
+    padding:16px 0; border-bottom:1px solid var(--line);
+  }
+  .cart-item .ci-name{font-family:'Cinzel',serif; font-size:14.5px; color:var(--plum-900); letter-spacing:0.02em;}
+  .cart-item .ci-price{font-size:14.5px; color:var(--ink-900); opacity:0.75; text-align:right;}
+  .cart-item .ci-controls{display:flex; align-items:center; gap:10px; grid-column:1/2;}
+  .cart-item .ci-remove{
+    grid-column:2/3; justify-self:end; background:none; border:none; color:var(--error-700);
+    font-family:'Cinzel',serif; font-size:11.5px; letter-spacing:0.06em; cursor:pointer; padding:4px;
+  }
+  .cart-empty-msg{padding:40px 24px; text-align:center; color:var(--ink-900); opacity:0.65; font-size:16px;}
+  .cart-footer{padding:20px 24px 24px; border-top:1px solid var(--line);}
+  .cart-total-row{
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:'Cinzel',serif; font-size:16px; color:var(--plum-900); margin-bottom:16px;
+  }
+  .cart-checkout{
+    width:100%; text-align:center; background:var(--gold-500); color:var(--ink-900); border:none;
+    padding:15px; font-family:'Cinzel',serif; font-size:13.5px; letter-spacing:0.08em;
+    border-radius:2px; cursor:pointer; font-weight:600;
+  }
+  .cart-checkout:hover{background:var(--plum-900); color:var(--cream-100);}
+  .cart-checkout[disabled]{opacity:0.55; cursor:not-allowed;}
+
+  /* ---- qty stepper + buy box under product cards ---- */
+  .buy-box{
+    margin-top:14px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  }
+  .qty-stepper{
+    display:flex; align-items:center; border:1px solid var(--gold-500); border-radius:2px; overflow:hidden;
+  }
+  .qty-btn{
+    background:var(--cream-200); border:none; width:34px; height:38px; cursor:pointer;
+    font-family:'Cinzel',serif; font-size:16px; color:var(--plum-900);
+  }
+  .qty-btn:hover{background:var(--gold-400);}
+  .qty-input{
+    width:42px; height:38px; text-align:center; border:none; border-left:1px solid var(--gold-500);
+    border-right:1px solid var(--gold-500); font-family:'EB Garamond',serif; font-size:16px;
+    color:var(--ink-900); background:#fffdf8;
+  }
+  .buy-btn{
+    flex:1; min-width:120px; background:var(--plum-900); color:var(--cream-100); border:1px solid var(--plum-900);
+    padding:11px 18px; font-family:'Cinzel',serif; font-size:13px; letter-spacing:0.08em;
+    border-radius:2px; cursor:pointer; font-weight:600; transition:background .2s ease;
+  }
+  .buy-btn:hover{background:var(--gold-500); border-color:var(--gold-500); color:var(--ink-900);}
+  .buy-btn.added{background:#4c784a; border-color:#4c784a;}
+
+  /* ---- order summary in checkout section ---- */
+  .order-summary{
+    background:var(--cream-100); border:1px solid var(--line); border-radius:4px;
+    padding:22px 24px; margin-bottom:24px;
+  }
+  .order-summary h3{font-size:16px; color:var(--plum-900); margin-bottom:14px;}
+  .order-summary .os-row{
+    display:flex; justify-content:space-between; gap:10px; font-size:15.5px;
+    padding:8px 0; border-bottom:1px solid var(--line);
+  }
+  .order-summary .os-total{
+    display:flex; justify-content:space-between; padding-top:14px; margin-top:6px;
+    font-family:'Cinzel',serif; font-size:15px; color:var(--plum-900);
+  }
+  .order-summary .os-empty{font-size:15.5px; opacity:0.75;}
+  .order-summary .os-edit{
+    display:inline-block; margin-top:14px; font-family:'Cinzel',serif; font-size:12px;
+    letter-spacing:0.06em; color:var(--plum-900); text-decoration:underline; cursor:pointer; background:none; border:none; padding:0;
+  }
+  .cart-error{
+    display:none; background:rgba(138,58,58,0.1); border:1px solid var(--error-700); color:var(--error-700);
+    padding:14px 16px; border-radius:2px; font-size:15px; margin-bottom:18px;
+  }
+  .cart-error.visible{display:block;}
+
   footer{background:var(--plum-900); color:var(--cream-200); padding:56px 0 30px;}
   footer .grid{display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:40px;}
   footer .brandmark .img-slot{height:52px; width:52px;}
@@ -603,6 +746,24 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
 
 <div class="scroll-progress" id="scroll-progress"></div>
 
+<div class="cart-overlay" id="cart-overlay"></div>
+<aside class="cart-drawer" id="cart-drawer" aria-hidden="true">
+  <div class="cart-drawer-head">
+    <h3 data-sr>Korpa</h3>
+    <h3 data-en>Cart</h3>
+    <button type="button" class="cart-close" id="cart-close" aria-label="Zatvori">×</button>
+  </div>
+  <div class="cart-items" id="cart-items"></div>
+  <div class="cart-footer">
+    <div class="cart-total-row">
+      <span data-sr>Ukupno</span><span data-en>Total</span>
+      <span id="cart-total">0 din</span>
+    </div>
+    <button type="button" class="cart-checkout" id="cart-checkout" data-sr>Nastavi na porudžbinu</button>
+    <button type="button" class="cart-checkout" id="cart-checkout-en" data-en>Proceed to checkout</button>
+  </div>
+</aside>
+
 <header class="top">
   <div class="wrap">
 
@@ -619,6 +780,9 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
       <a href="#proizvodi" data-sr>Proizvodi</a>
       <a href="#proizvodi" data-en>Products</a>
 
+      <a href="#" class="cart-link" id="cart-link-desktop" data-sr>Korpa<span class="cart-badge" id="cart-badge-desktop" hidden>0</span></a>
+      <a href="#" class="cart-link" id="cart-link-desktop-en" data-en>Cart<span class="cart-badge" id="cart-badge-desktop-en" hidden>0</span></a>
+
       <a href="#poruci" class="nav-cta" data-sr>Poruči</a>
       <a href="#poruci" class="nav-cta" data-en>Order</a>
     </nav>
@@ -631,6 +795,7 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
 
       <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Meni" aria-expanded="false" aria-controls="mobile-menu">
         <span></span><span></span><span></span>
+        <span class="cart-badge hamburger-badge" id="hamburger-badge" hidden>0</span>
       </button>
     </div>
 
@@ -641,6 +806,8 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
     <a href="#prica" data-en>Our Story</a>
     <a href="#proizvodi" data-sr>Proizvodi</a>
     <a href="#proizvodi" data-en>Products</a>
+    <a href="#" class="cart-link" id="cart-link-mobile" data-sr>Korpa<span class="cart-badge" id="cart-badge-mobile" hidden>0</span></a>
+    <a href="#" class="cart-link" id="cart-link-mobile-en" data-en>Cart<span class="cart-badge" id="cart-badge-mobile-en" hidden>0</span></a>
     <a href="#poruci" class="mobile-cta" data-sr>Poruči</a>
     <a href="#poruci" class="mobile-cta" data-en>Order</a>
   </nav>
@@ -653,7 +820,7 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
       <span class="kicker" data-en>VASILJEVIĆ DISTILLERY · SMEDEREVO</span>
       <h1 data-sr>Rakija koja vraća u doba Nemanjića!</h1>
       <h1 data-en>A brandy that carries you back to the age of the Nemanjići.</h1>
-      
+
       <div class="fruit-row">
         <span class="seg" data-sr>ŠLJIVA</span><span class="seg" data-en>PLUM</span>
         <span class="sep">⚜</span>
@@ -744,7 +911,7 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
     <p class="lede" data-sr>Pravimo ograničene serije u kojima je svaka flaša numerisana</p>
     <p class="lede" data-en>We don't repeat labels: limited batches where every bottle is numbered</p>
     <div class="prod-grid">
-      <div class="prod reveal">
+      <div class="prod reveal" data-product-id="sljivovica">
         <div class="flip-card" tabindex="0" role="button" aria-label="Limited Release Šljivovica">
           <div class="flip-inner">
             <div class="flip-front">
@@ -753,6 +920,7 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
                 <h3 data-sr>Limited Release Šljivovica</h3>
                 <h3 data-en>Limited Release Šljivovica</h3>
                 <div class="specs">45% alc. · 700 ml</div>
+                <div class="price">2.500 din</div>
                 <span class="flip-hint" data-sr>Klikni za detalje ↻</span>
                 <span class="flip-hint" data-en>Click for details ↻</span>
               </div>
@@ -762,13 +930,23 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
               <h3 data-en>Limited Release Šljivovica</h3>
               <p class="desc" data-sr>Naše najprepoznatljivije izdanje. Stara rakija koja je ležala između 2 i 4 godine u hrastovom buretu.</p>
               <p class="desc" data-en>Our signature release. Aged brandy that rested two to four years in oak.</p>
-              <a class="status" href="#poruci" data-sr>Poruči - dostupno</a>
-              <a class="status" href="#poruci" data-en>Order - available</a>
+              <span class="price">2.500 din</span>
+              <a class="status" href="#poruci" data-sr>Dostupno</a>
+              <a class="status" href="#poruci" data-en>Available</a>
             </div>
           </div>
         </div>
+        <div class="buy-box">
+          <div class="qty-stepper">
+            <button type="button" class="qty-btn qty-minus" aria-label="Smanji količinu">−</button>
+            <input type="text" inputmode="numeric" class="qty-input" value="1" aria-label="Količina">
+            <button type="button" class="qty-btn qty-plus" aria-label="Povećaj količinu">+</button>
+          </div>
+          <button type="button" class="buy-btn" data-sr>Kupi</button>
+          <button type="button" class="buy-btn" data-en>Buy</button>
+        </div>
       </div>
-      <div class="prod reveal">
+      <div class="prod reveal" data-product-id="kajsija">
         <div class="flip-card" tabindex="0" role="button" aria-label="Limited Release Kajsija">
           <div class="flip-inner">
             <div class="flip-front">
@@ -777,6 +955,7 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
                 <h3 data-sr>Limited Release Kajsija</h3>
                 <h3 data-en>Limited Release Apricot</h3>
                 <div class="specs">42% alc. · 700 ml</div>
+                <div class="price">3.000 din</div>
                 <span class="flip-hint" data-sr>Klikni za detalje ↻</span>
                 <span class="flip-hint" data-en>Click for details ↻</span>
               </div>
@@ -786,13 +965,23 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
               <h3 data-en>Limited Release Apricot</h3>
               <p class="desc" data-sr>Rakija od kajsije, bez koštica i bez dodatog šećera. Miriše na bakinu kuću na selu</p>
               <p class="desc" data-en>Rounded apricot brandy, pit-free and with no added sugar. Smells like grandma's house in the countryside</p>
-              <a class="status" href="#poruci" data-sr>Poruči - dostupno</a>
-              <a class="status" href="#poruci" data-en>Order - available</a>
+              <span class="price">3.000 din</span>
+              <a class="status" href="#poruci" data-sr>Dostupno</a>
+              <a class="status" href="#poruci" data-en>Available</a>
             </div>
           </div>
         </div>
+        <div class="buy-box">
+          <div class="qty-stepper">
+            <button type="button" class="qty-btn qty-minus" aria-label="Smanji količinu">−</button>
+            <input type="text" inputmode="numeric" class="qty-input" value="1" aria-label="Količina">
+            <button type="button" class="qty-btn qty-plus" aria-label="Povećaj količinu">+</button>
+          </div>
+          <button type="button" class="buy-btn" data-sr>Kupi</button>
+          <button type="button" class="buy-btn" data-en>Buy</button>
+        </div>
       </div>
-      <div class="prod reveal">
+      <div class="prod reveal" data-product-id="suva-sljiva">
         <div class="flip-card" tabindex="0" role="button" aria-label="Suva Šljiva Limited Edition">
           <div class="flip-inner">
             <div class="flip-front">
@@ -801,6 +990,7 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
                 <h3 data-sr>Suva Šljiva Limited Edition</h3>
                 <h3 data-en>Dry Plum Limited Edition</h3>
                 <div class="specs">42% alc. · 700 ml</div>
+                <div class="price">3.200 din</div>
                 <span class="flip-hint" data-sr>Klikni za detalje ↻</span>
                 <span class="flip-hint" data-en>Click for details ↻</span>
               </div>
@@ -810,13 +1000,23 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
               <h3 data-en>Dry Plum Limited Edition</h3>
               <p class="desc" data-sr>Posebno izdanje zasnovano na Budin Barrel Šljivovici. Bogata notama kao Betovenova simfonija: Suva šljiva, crni čaj, barut, vanila... Proizvedena u ekskluzivnoj seriji, ne žuri na degustaciju. Čeka na posebne prilike.</p>
               <p class="desc" data-en>A special edition built on our Šljivovica, layered with notes like a Beethoven symphony: dried plum, black tea, gunpowder, vanilla... Produced in an exclusive batch, it isn't rushed to the glass — it waits for the occasions that deserve it.</p>
+              <span class="price">3.200 din</span>
               <a class="status" href="#poruci" data-sr>Poruči unapred</a>
               <a class="status" href="#poruci" data-en>Pre-order</a>
             </div>
           </div>
         </div>
+        <div class="buy-box">
+          <div class="qty-stepper">
+            <button type="button" class="qty-btn qty-minus" aria-label="Smanji količinu">−</button>
+            <input type="text" inputmode="numeric" class="qty-input" value="1" aria-label="Količina">
+            <button type="button" class="qty-btn qty-plus" aria-label="Povećaj količinu">+</button>
+          </div>
+          <button type="button" class="buy-btn" data-sr>Kupi</button>
+          <button type="button" class="buy-btn" data-en>Buy</button>
+        </div>
       </div>
-      <div class="prod reveal">
+      <div class="prod reveal" data-product-id="degustacija">
         <div class="flip-card" tabindex="0" role="button" aria-label="Degustaciona kolekcija">
           <div class="flip-inner">
             <div class="flip-front">
@@ -825,6 +1025,7 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
                 <h3 data-sr>Degustaciona kolekcija</h3>
                 <h3 data-en>Tasting Collection</h3>
                 <div class="specs">40–45% alc. · 50 ml</div>
+                <div class="price">800 din</div>
                 <span class="flip-hint" data-sr>Klikni za detalje ↻</span>
                 <span class="flip-hint" data-en>Click for details ↻</span>
               </div>
@@ -834,10 +1035,20 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
               <h3 data-en>Tasting Collection</h3>
               <p class="desc" data-sr>Kolekcija čokanja Šljivovice, Kajsije i Suve šljive. Mali format za prvo upoznavanje sa Budin Barrel proizvodima. Idealan za degustacije, poklone ili kao pratilac uz veća izdanja iz naše kolekcije.</p>
               <p class="desc" data-en>A collection of shot glasses of Šljivovica, Kajsija and Suva Šljiva. A small format for a first introduction to Budin Barrel. Ideal for tastings, gifts, or as a companion to the larger bottles in our range.</p>
-              <a class="status" href="#poruci" data-sr>Poruči - dostupno</a>
-              <a class="status" href="#poruci" data-en>Order - available</a>
+              <span class="price">800 din</span>
+              <a class="status" href="#poruci" data-sr>Dostupno</a>
+              <a class="status" href="#poruci" data-en>Available</a>
             </div>
           </div>
+        </div>
+        <div class="buy-box">
+          <div class="qty-stepper">
+            <button type="button" class="qty-btn qty-minus" aria-label="Smanji količinu">−</button>
+            <input type="text" inputmode="numeric" class="qty-input" value="1" aria-label="Količina">
+            <button type="button" class="qty-btn qty-plus" aria-label="Povećaj količinu">+</button>
+          </div>
+          <button type="button" class="buy-btn" data-sr>Kupi</button>
+          <button type="button" class="buy-btn" data-en>Buy</button>
         </div>
       </div>
     </div>
@@ -895,7 +1106,22 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
 
     <form class="order-form reveal-right" name="porudzbina" method="POST" data-netlify="true" netlify-honeypot="bb-field">
       <input type="hidden" name="form-name" value="porudzbina">
+      <input type="hidden" name="stavke" id="field-stavke">
+      <input type="hidden" name="ukupno" id="field-ukupno">
       <p style="display:none;"><label>Ne popunjavaj ovo: <input name="bb-field"></label></p>
+
+      <div class="order-summary" id="order-summary">
+        <h3 data-sr>Vaša porudžbina</h3>
+        <h3 data-en>Your order</h3>
+        <div id="order-summary-body"></div>
+        <button type="button" class="os-edit" data-sr id="os-edit">Izmeni korpu</button>
+        <button type="button" class="os-edit" data-en id="os-edit-en">Edit cart</button>
+      </div>
+
+      <div class="cart-error" id="cart-error">
+        <span data-sr>Korpa je prazna. Dodajte bar jedan proizvod pre slanja porudžbine.</span>
+        <span data-en>Your cart is empty. Add at least one product before sending your order.</span>
+      </div>
 
       <div class="field">
         <label data-sr>Ime i prezime</label><label data-en>Full name</label>
@@ -910,28 +1136,6 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
         <div class="field">
           <label data-sr>Instagram / email (opciono)</label><label data-en>Instagram / email (optional)</label>
           <input type="text" name="kontakt">
-        </div>
-      </div>
-
-      <div class="two-col">
-        <div class="field">
-          <label data-sr>Proizvod</label><label data-en>Product</label>
-          <select name="proizvod" required>
-            <option value="" data-sr>Izaberi proizvod</option>
-            <option value="" data-en selected disabled>Choose a product</option>
-            <option data-sr value="Limited Release Šljivovica 700ml">Limited Release Šljivovica, 700ml</option>
-            <option data-en value="Limited Release Šljivovica 700ml">Limited Release Šljivovica, 700ml</option>
-            <option data-sr value="Limited Release Kajsija 700ml">Limited Release Kajsija, 700ml</option>
-            <option data-en value="Limited Release Kajsija 700ml">Limited Release Kajsija, 700ml</option>
-            <option data-sr value="Suva Šljiva Limited Edition 700ml">Suva Šljiva Limited Edition, 700ml</option>
-            <option data-en value="Suva Šljiva Limited Edition 700ml">Dry Plum Limited Edition, 700ml</option>
-            <option data-sr value="Degustaciona kolekcija 50ml">Degustaciona kolekcija, 50ml</option>
-            <option data-en value="Degustaciona kolekcija 50ml">Tasting Collection, 50ml</option>
-          </select>
-        </div>
-        <div class="field">
-          <label data-sr>Količina</label><label data-en>Quantity</label>
-          <input type="number" name="kolicina" min="1" value="1" required>
         </div>
       </div>
 
@@ -1008,15 +1212,254 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
 
 <script>
   var addressBlock = document.getElementById('address-block');
+  var gradInput = addressBlock.querySelector('input[name="grad"]');
+  var adresaInput = addressBlock.querySelector('input[name="adresa"]');
   document.querySelectorAll('input[name="nacin"]').forEach(function(r){
     r.addEventListener('change', function(){
       if (document.querySelector('input[name="nacin"]:checked').value === 'Dostava') {
         addressBlock.classList.add('show');
+        gradInput.required = true;
+        adresaInput.required = true;
       } else {
         addressBlock.classList.remove('show');
+        gradInput.required = false;
+        adresaInput.required = false;
       }
     });
   });
+
+  /* ---- CART ---- */
+  var PRODUCTS = {
+    'sljivovica':   { sr: 'Limited Release Šljivovica, 700ml',      en: 'Limited Release Šljivovica, 700ml', price: 2500 },
+    'kajsija':      { sr: 'Limited Release Kajsija, 700ml',         en: 'Limited Release Apricot, 700ml',    price: 3000 },
+    'suva-sljiva':  { sr: 'Suva Šljiva Limited Edition, 700ml',     en: 'Dry Plum Limited Edition, 700ml',   price: 3200 },
+    'degustacija':  { sr: 'Degustaciona kolekcija, 50ml',           en: 'Tasting Collection, 50ml',          price: 800 }
+  };
+  var CART_KEY = 'bb-cart';
+  var cart = [];
+
+  function loadCart(){
+    try {
+      var raw = localStorage.getItem(CART_KEY);
+      cart = raw ? JSON.parse(raw) : [];
+      if (!Array.isArray(cart)) cart = [];
+    } catch (e) { cart = []; }
+  }
+  function saveCart(){
+    try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch (e) {}
+  }
+  function currentLang(){
+    return document.documentElement.getAttribute('data-lang') === 'en' ? 'en' : 'sr';
+  }
+  function fmtPrice(n){
+    return n.toLocaleString('sr-RS') + ' din';
+  }
+  function cartCount(){
+    return cart.reduce(function(sum, item){ return sum + item.qty; }, 0);
+  }
+  function cartTotal(){
+    return cart.reduce(function(sum, item){
+      var p = PRODUCTS[item.id];
+      return sum + (p ? p.price * item.qty : 0);
+    }, 0);
+  }
+  function addToCart(id, qty){
+    qty = Math.max(1, parseInt(qty, 10) || 1);
+    var existing = cart.find(function(i){ return i.id === id; });
+    if (existing) { existing.qty += qty; } else { cart.push({ id: id, qty: qty }); }
+    saveCart();
+    renderAll();
+  }
+  function removeFromCart(id){
+    cart = cart.filter(function(i){ return i.id !== id; });
+    saveCart();
+    renderAll();
+  }
+  function setCartQty(id, qty){
+    qty = parseInt(qty, 10) || 0;
+    if (qty <= 0) { removeFromCart(id); return; }
+    var existing = cart.find(function(i){ return i.id === id; });
+    if (existing) { existing.qty = qty; saveCart(); renderAll(); }
+  }
+
+  function renderBadges(){
+    var count = cartCount();
+    var badges = document.querySelectorAll('.cart-badge');
+    badges.forEach(function(b){
+      b.textContent = count;
+      b.hidden = count === 0;
+    });
+  }
+
+  function renderDrawer(){
+    var itemsBox = document.getElementById('cart-items');
+    var totalBox = document.getElementById('cart-total');
+    var checkoutBtns = document.querySelectorAll('.cart-checkout');
+    var lang = currentLang();
+    itemsBox.innerHTML = '';
+    if (cart.length === 0) {
+      var msg = document.createElement('div');
+      msg.className = 'cart-empty-msg';
+      msg.textContent = lang === 'en' ? 'Your cart is empty.' : 'Korpa je prazna.';
+      itemsBox.appendChild(msg);
+      checkoutBtns.forEach(function(b){ b.disabled = true; });
+    } else {
+      cart.forEach(function(item){
+        var p = PRODUCTS[item.id];
+        if (!p) return;
+        var row = document.createElement('div');
+        row.className = 'cart-item';
+        row.innerHTML =
+          '<div class="ci-name">' + (lang === 'en' ? p.en : p.sr) + '</div>' +
+          '<div class="ci-price">' + fmtPrice(p.price * item.qty) + '</div>' +
+          '<div class="ci-controls">' +
+            '<div class="qty-stepper">' +
+              '<button type="button" class="qty-btn ci-minus" aria-label="Smanji">−</button>' +
+              '<input type="text" inputmode="numeric" class="qty-input ci-qty" value="' + item.qty + '" aria-label="Količina">' +
+              '<button type="button" class="qty-btn ci-plus" aria-label="Povećaj">+</button>' +
+            '</div>' +
+          '</div>' +
+          '<button type="button" class="ci-remove" data-id="' + item.id + '">' + (lang === 'en' ? 'Remove' : 'Ukloni') + '</button>';
+        row.querySelector('.ci-minus').addEventListener('click', function(){ setCartQty(item.id, item.qty - 1); });
+        row.querySelector('.ci-plus').addEventListener('click', function(){ setCartQty(item.id, item.qty + 1); });
+        row.querySelector('.ci-qty').addEventListener('change', function(e){ setCartQty(item.id, e.target.value); });
+        row.querySelector('.ci-remove').addEventListener('click', function(){ removeFromCart(item.id); });
+        itemsBox.appendChild(row);
+      });
+      checkoutBtns.forEach(function(b){ b.disabled = false; });
+    }
+    totalBox.textContent = fmtPrice(cartTotal());
+  }
+
+  function renderOrderSummary(){
+    var body = document.getElementById('order-summary-body');
+    var errorBox = document.getElementById('cart-error');
+    var lang = currentLang();
+    var stavkeField = document.getElementById('field-stavke');
+    var ukupnoField = document.getElementById('field-ukupno');
+    if (!body) return;
+    body.innerHTML = '';
+    if (cart.length === 0) {
+      var empty = document.createElement('div');
+      empty.className = 'os-empty';
+      empty.textContent = lang === 'en'
+        ? 'Your cart is empty — add a product first.'
+        : 'Korpa je prazna — prvo dodajte proizvod.';
+      body.appendChild(empty);
+      stavkeField.value = '';
+      ukupnoField.value = '';
+      return;
+    }
+    var lines = [];
+    cart.forEach(function(item){
+      var p = PRODUCTS[item.id];
+      if (!p) return;
+      var name = lang === 'en' ? p.en : p.sr;
+      var row = document.createElement('div');
+      row.className = 'os-row';
+      row.innerHTML = '<span>' + name + ' × ' + item.qty + '</span><span>' + fmtPrice(p.price * item.qty) + '</span>';
+      body.appendChild(row);
+      lines.push(p.sr + ' x' + item.qty + ' (' + fmtPrice(p.price * item.qty) + ')');
+    });
+    var totalRow = document.createElement('div');
+    totalRow.className = 'os-total';
+    totalRow.innerHTML = '<span>' + (lang === 'en' ? 'Total' : 'Ukupno') + '</span><span>' + fmtPrice(cartTotal()) + '</span>';
+    body.appendChild(totalRow);
+    stavkeField.value = lines.join('; ');
+    ukupnoField.value = fmtPrice(cartTotal());
+    errorBox.classList.remove('visible');
+  }
+
+  function renderAll(){
+    renderBadges();
+    renderDrawer();
+    renderOrderSummary();
+  }
+
+  function openCart(){
+    document.getElementById('cart-drawer').classList.add('open');
+    document.getElementById('cart-overlay').classList.add('open');
+    document.getElementById('cart-drawer').setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeCart(){
+    document.getElementById('cart-drawer').classList.remove('open');
+    document.getElementById('cart-overlay').classList.remove('open');
+    document.getElementById('cart-drawer').setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.cart-link').forEach(function(link){
+    link.addEventListener('click', function(e){
+      e.preventDefault();
+      var mobileMenu = document.getElementById('mobile-menu');
+      var toggle = document.getElementById('menu-toggle');
+      if (mobileMenu.classList.contains('open')) {
+        mobileMenu.classList.remove('open');
+        toggle.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+      openCart();
+    });
+  });
+  document.getElementById('cart-close').addEventListener('click', closeCart);
+  document.getElementById('cart-overlay').addEventListener('click', closeCart);
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') { closeCart(); }
+  });
+  document.querySelectorAll('.cart-checkout').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if (cart.length === 0) return;
+      closeCart();
+      renderOrderSummary();
+      document.getElementById('poruci').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+  var editCartBtns = document.querySelectorAll('#os-edit, #os-edit-en');
+  editCartBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){ openCart(); });
+  });
+
+  /* wire quantity steppers + Kupi buttons on product cards */
+  document.querySelectorAll('.prod[data-product-id]').forEach(function(prod){
+    var id = prod.getAttribute('data-product-id');
+    var qtyInput = prod.querySelector('.buy-box .qty-input');
+    var minus = prod.querySelector('.buy-box .qty-minus');
+    var plus = prod.querySelector('.buy-box .qty-plus');
+    var buyBtns = prod.querySelectorAll('.buy-btn');
+
+    function currentQty(){ return Math.max(1, parseInt(qtyInput.value, 10) || 1); }
+
+    minus.addEventListener('click', function(){ qtyInput.value = Math.max(1, currentQty() - 1); });
+    plus.addEventListener('click', function(){ qtyInput.value = currentQty() + 1; });
+    qtyInput.addEventListener('change', function(){ qtyInput.value = currentQty(); });
+
+    buyBtns.forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        addToCart(id, currentQty());
+        var original = btn.textContent;
+        btn.classList.add('added');
+        btn.textContent = currentLang() === 'en' ? 'Added ✓' : 'Dodato ✓';
+        setTimeout(function(){
+          btn.classList.remove('added');
+          btn.textContent = original;
+        }, 1400);
+      });
+    });
+
+    /* flip-back status buttons also add one unit to cart */
+    prod.querySelectorAll('.flip-back .status').forEach(function(statusLink){
+      statusLink.addEventListener('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        addToCart(id, 1);
+      });
+    });
+  });
+
+  loadCart();
+  renderAll();
 
   /* order form: submit via fetch to Netlify Forms, no page reload */
   (function(){
@@ -1036,6 +1479,15 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
       e.preventDefault();
       errorBox.classList.remove('visible');
       successBox.classList.remove('visible');
+
+      if (cart.length === 0) {
+        var cartErrorBox = document.getElementById('cart-error');
+        cartErrorBox.classList.add('visible');
+        cartErrorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      renderOrderSummary();
       submitBtns.forEach(function(b){ b.disabled = true; });
 
       var formData = new FormData(form);
@@ -1050,6 +1502,11 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
         if (response.ok) {
           form.reset();
           addressBlock.classList.remove('show');
+          gradInput.required = false;
+          adresaInput.required = false;
+          cart = [];
+          saveCart();
+          renderAll();
           form.classList.add('is-hidden');
           successBox.classList.add('visible');
           successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1069,6 +1526,7 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
       document.documentElement.setAttribute('data-lang', lang);
       document.querySelectorAll('.lang-switch button').forEach(function(b){ b.classList.remove('active'); });
       btn.classList.add('active');
+      renderAll();
     });
   });
 
