@@ -18,17 +18,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
-    --plum-950:#241019;
-    --plum-900:#391c2f;
-    --plum-800:#522840;
-    --gold-500:#c39d4e;
-    --gold-400:#d8ba6c;
-    --cream-100:#f8f1de;
-    --cream-200:#f1e6c9;
-    --oak-700:#6b4527;
-    --ink-900:#2a2015;
-    --seal-700:#7c2536;
-    --line:rgba(195,157,78,0.35);
+    --plum-900:#5b3a72;
+    --plum-950:#3c2650;
+    --plum-800:#7d5698;
+    --gold-500:#c29a52;
+    --gold-400:#d8bc8a;
+    --cream-100:#faf7f2;
+    --cream-200:#f4ebdd;
+    --oak-700:#a77a4e;
+    --ink-900:#3a2a22;
+    --error-700:#8a3a3a;
+    --line:rgba(194,154,82,0.35);
   }
   .grain{position:relative;}
   .grain::before{
@@ -39,6 +39,9 @@
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--gold-400); outline-offset:3px; border-radius:1px;
+  }
   body{
     margin:0;
     overflow-x:hidden;
@@ -54,9 +57,16 @@
     letter-spacing:0.02em;
     margin:0;
   }
+  h1,h2,h3,p,span,div,a,label,button{
+    overflow-wrap:break-word;
+    word-break:break-word;
+  }
   img{max-width:100%;display:block;}
   a{color:inherit;}
   .wrap{max-width:1120px;margin:0 auto;padding:0 28px;}
+  @media (max-width:480px){
+    .wrap{padding:0 20px;}
+  }
 
  /* ---- lang toggle ---- */
 [data-en]{
@@ -65,7 +75,7 @@
 .brandmark [data-sr],
 .brandmark [data-en],
 nav.top-links a{
-  color:rgba(243,234,212,.92) !important;
+  color:rgba(250,247,242,.92) !important;
   text-shadow:
     0 0 18px rgba(0,0,0,.35),
     0 2px 12px rgba(0,0,0,.35);
@@ -104,7 +114,7 @@ html[data-lang="en"] [data-en-block]{
     transition:background .35s ease, padding .3s ease, box-shadow .35s ease, backdrop-filter .35s ease;
   }
   header.top.scrolled{
-    background:rgba(23,10,16,0.92); backdrop-filter:blur(8px);
+    background:rgba(91,58,114,0.94); backdrop-filter:blur(8px);
     padding:13px 0; box-shadow:0 10px 26px rgba(0,0,0,0.35);
   }
   .top .wrap{
@@ -118,6 +128,7 @@ html[data-lang="en"] [data-en-block]{
   align-items:center;
   gap:16px;
   min-width:0;
+  text-decoration:none;
 }
 
 .brandmark span{
@@ -125,7 +136,7 @@ html[data-lang="en"] [data-en-block]{
   font-size:28px;
   font-weight:600;
   letter-spacing:.06em;
-  color:rgba(243,234,212,.92) !important;
+  color:rgba(250,247,242,.92) !important;
   text-shadow:
     0 0 18px rgba(0,0,0,.35),
     0 2px 12px rgba(0,0,0,.35);
@@ -144,7 +155,7 @@ header.top.scrolled .brandmark span{
 }
 nav.top-links a{
   position:relative;
-  color:rgba(243,234,212,.92) !important;
+  color:rgba(250,247,242,.92) !important;
   text-decoration:none;
   font-family:'Cinzel',serif;
   font-size:13px;
@@ -185,20 +196,20 @@ nav.top-links a{
   .mobile-menu{
     display:none;
     position:fixed; top:0; left:0; right:0; z-index:39;
-    background:rgba(23,10,16,0.97); backdrop-filter:blur(10px);
+    background:rgba(91,58,114,0.97); backdrop-filter:blur(10px);
     padding:104px 28px 40px; flex-direction:column; gap:24px;
     transform:translateY(-100%); transition:transform .35s ease;
   }
   .mobile-menu.open{transform:translateY(0);}
   .mobile-menu a{
     font-family:'Cinzel',serif; font-size:17px; letter-spacing:.08em;
-    color:var(--cream-100); text-decoration:none; border-bottom:1px solid rgba(184,147,61,0.25);
+    color:var(--cream-100); text-decoration:none; border-bottom:1px solid rgba(194,154,82,0.25);
     padding-bottom:14px;
   }
   .mobile-menu a.mobile-cta{
     margin-top:8px; text-align:center; border:1px solid var(--gold-500);
-    border-bottom:1px solid var(--gold-500); background:var(--gold-500); color:var(--plum-950);
-    padding:16px; border-radius:2px;
+    border-bottom:1px solid var(--gold-500); background:var(--gold-500); color:var(--ink-900);
+    padding:16px; border-radius:2px; font-weight:600;
   }
 
   @media (max-width:720px){
@@ -271,16 +282,37 @@ nav.top-links a{
   /* ---- hero ---- */
   .hero{
     position:relative;
-    background:linear-gradient(180deg, var(--plum-950) 0%, var(--plum-900) 55%, var(--plum-800) 100%);
+    background:linear-gradient(165deg, var(--plum-900) 0%, var(--plum-950) 100%);
     color:var(--cream-100);
     overflow:hidden;
   }
+  .hero .mosaic-corner{
+    position:absolute; z-index:1; width:620px; height:620px; pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Crect width='20' height='20' x='0' y='0' fill='%23a9a9a9' opacity='0.55'/%3E%3Crect width='20' height='20' x='20' y='20' fill='%23a9a9a9' opacity='0.55'/%3E%3Crect width='20' height='20' x='20' y='0' fill='%23d6d6d6' opacity='0.4'/%3E%3Crect width='20' height='20' x='0' y='20' fill='%23d6d6d6' opacity='0.4'/%3E%3Crect width='40' height='40' fill='none' stroke='%23808080' stroke-width='0.6'/%3E%3C/svg%3E");
+    background-repeat:repeat; background-size:40px 40px;
+    opacity:0.62;
+  }
+  .hero .mosaic-tl{
+    top:-140px; left:-160px;
+    -webkit-mask-image:radial-gradient(circle at top left, black 0%, black 38%, transparent 78%);
+    mask-image:radial-gradient(circle at top left, black 0%, black 38%, transparent 78%);
+  }
+  .hero .mosaic-br{
+    bottom:-140px; right:-160px;
+    -webkit-mask-image:radial-gradient(circle at bottom right, black 0%, black 38%, transparent 78%);
+    mask-image:radial-gradient(circle at bottom right, black 0%, black 38%, transparent 78%);
+  }
+  @media (max-width:720px){
+    .hero .mosaic-corner{width:380px; height:380px; background-size:30px 30px;}
+    .hero .mosaic-tl{top:-70px; left:-80px;}
+    .hero .mosaic-br{bottom:-70px; right:-80px;}
+  }
   .hero .wrap{
-    display:grid; grid-template-columns:1.05fr 0.95fr; align-items:center;
-    gap:40px; padding-top:118px; padding-bottom:70px; position:relative; z-index:2;
+    display:grid; grid-template-columns:1fr 1.1fr; align-items:center;
+    gap:56px; padding-top:130px; padding-bottom:90px; position:relative; z-index:2;
   }
   .hero h1{
-    font-size:clamp(34px, 5vw, 58px); line-height:1.08; color:rgba(243,234,212,0.9);
+    font-size:clamp(34px, 5vw, 58px); line-height:1.08; color:rgba(250,247,242,0.98);
   }
   .hero .kicker{
     font-family:'Cinzel',serif; font-size:13px; letter-spacing:0.22em; color:var(--gold-400);
@@ -295,34 +327,30 @@ nav.top-links a{
     font-size:13px; letter-spacing:0.08em; text-decoration:none; border-radius:2px;
     border:1px solid var(--gold-500);
   }
-  .btn.solid{background:var(--gold-500); color:var(--plum-950);}
+  .btn.solid{background:var(--gold-500); color:var(--ink-900); font-weight:600;}
+  .btn.solid:hover{background:var(--gold-400);}
   .btn.outline{background:transparent; color:var(--cream-100);}
   .hero .figure{position:relative;}
-  .hero .figure img{
-    border-radius:3px; box-shadow:0 30px 60px -20px rgba(0,0,0,0.6);
+  .hero .figure::before{
+    content:''; position:absolute; inset:-16%; z-index:0;
+    background:radial-gradient(ellipse at center, rgba(216,186,108,0.28) 0%, rgba(216,186,108,0.08) 45%, transparent 72%);
+    pointer-events:none;
   }
-  .hero .figure .seal{
-    position:absolute; bottom:-26px; left:-26px; width:104px; height:104px;
-    background:var(--plum-950);
-    border-radius:50%; display:flex; flex-direction:column; align-items:center;
-    justify-content:center; text-align:center; color:var(--gold-400);
-    font-family:'Cinzel',serif; letter-spacing:0.07em;
-    box-shadow:0 14px 32px rgba(0,0,0,0.45); border:1px solid var(--gold-500);
-    padding:10px;
+  .hero .figure img, .hero .figure .img-slot{
+    position:relative; z-index:1;
+    -webkit-mask-image:radial-gradient(ellipse 76% 80% at center, black 58%, transparent 100%);
+    mask-image:radial-gradient(ellipse 76% 80% at center, black 58%, transparent 100%);
   }
-  .hero .figure .seal::before{
-    content:''; position:absolute; inset:6px;
-    border:1px solid rgba(204,169,79,0.35); border-radius:50%;
-  }
-  .hero .figure .seal .seal-year{
-    font-size:19px; font-weight:700; color:var(--cream-100); line-height:1; margin-bottom:5px;
-  }
-  .hero .figure .seal .seal-label{
-    font-size:8.5px; line-height:1.35;
+  .hero .figure::after{
+    content:''; position:absolute; inset:0; z-index:2; pointer-events:none;
+    background:radial-gradient(ellipse 76% 80% at center, transparent 40%, rgba(60,38,80,0.85) 100%);
   }
   @media (max-width:860px){
     .hero .wrap{grid-template-columns:1fr; padding-top:96px;}
-    .hero .figure{max-width:340px; margin:0 auto;}
+    .hero .figure{max-width:380px; margin:0 auto;}
+  }
+  @media (max-width:480px){
+    .hero .figure{max-width:260px;}
   }
 
   /* ---- fruit segments ---- */
@@ -336,56 +364,62 @@ nav.top-links a{
 
   /* ---- stats strip ---- */
   .stats{
-    background:var(--plum-800); color:var(--cream-100); position:relative; z-index:2;
-    border-top:1px solid rgba(204,169,79,0.25); border-bottom:1px solid rgba(204,169,79,0.25);
+    background:var(--cream-200); color:var(--ink-900); position:relative; z-index:2;
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  .stats .pride-tag{
+    display:block; text-align:center; font-family:'Cinzel',serif; font-style:italic;
+    font-size:14px; letter-spacing:0.06em; color:var(--plum-900); opacity:0.85;
+    padding:26px 28px 0;
   }
   .stats .wrap{
     display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px; text-align:center;
-    padding:44px 28px;
+    padding:30px 28px 46px;
   }
   .stats .stat .num{
-    font-family:'Cinzel',serif; font-size:40px; color:rgba(204,169,79,0.92); line-height:1;
+    font-family:'Cinzel',serif; font-size:56px; line-height:1; font-weight:700;
+    color:var(--plum-900);
+    text-shadow:0 1px 0 rgba(91,58,114,0.25), 0 0 22px rgba(91,58,114,0.18);
+    -webkit-text-stroke:0.5px var(--plum-900);
   }
   .stats .stat .num.num-text{
-    font-size:34px; line-height:1.15; font-weight:600;
+    font-size:32px; line-height:1.2; font-weight:700; -webkit-text-stroke:0.3px var(--plum-900);
   }
   .stats .stat .lab{
-    margin-top:10px; font-family:'Cinzel',serif; font-size:13px; letter-spacing:0.1em;
-    color:rgba(243,234,212,0.85);
+    margin-top:12px; font-family:'Cinzel',serif; font-size:14px; letter-spacing:0.12em;
+    color:var(--ink-900); opacity:0.8; font-weight:600;
   }
-  @media (max-width:720px){ .stats .wrap{grid-template-columns:1fr; gap:26px; padding:36px 28px;} }
+  @media (max-width:720px){
+    .stats .wrap{grid-template-columns:1fr; gap:30px; padding:26px 28px 40px;}
+    .stats .stat .num{font-size:48px;}
+  }
 
   /* ---- process ---- */
   .process{background:var(--cream-200);}
   .process .grid{display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center;}
   .process img{border-radius:3px;}
-  .process p{color:#3a2f22; font-size:18px;}
+  .process p{color:var(--ink-900); font-size:18px;}
   @media (max-width:860px){ .process .grid{grid-template-columns:1fr;}
     .process .grid > *:first-child{order:2;} }
 
   /* ---- section basics ---- */
   section{padding:88px 0;}
   .eyebrow-free h2{font-size:clamp(28px,3.4vw,40px); max-width:18ch;}
-  .rule{width:56px; height:2px; background:var(--gold-500); margin:22px 0;}
+  .rule{width:56px; height:2px; background:linear-gradient(90deg, var(--gold-500), rgba(194,154,82,0)); margin:22px 0;}
 
   /* ---- full-bleed background feature sections ---- */
   .bg-feature{
     position:relative; min-height:640px; display:flex; align-items:center;
-    background-color:rgba(60,44,30,0.4); background-size:cover; background-position:center;
+    background-color:var(--plum-900); background-size:cover; background-position:center;
   }
   .bg-feature::before{
     content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
-    background:linear-gradient(180deg, rgba(20,10,10,0.35), rgba(20,10,10,0.75));
-    opacity:1; mix-blend-mode:normal;
-  }
-  .bg-feature::after{
-    content:attr(data-label); position:absolute; bottom:14px; left:20px; z-index:2;
-    font-family:'Cinzel',serif; font-size:10px; letter-spacing:0.08em; color:rgba(243,234,212,0.4);
+    background:linear-gradient(180deg, rgba(20,12,10,0.04), rgba(20,12,10,0.22));
   }
   .bg-feature .wrap{position:relative; z-index:2; width:100%;}
   .feature-panel{
-    max-width:560px; background:rgba(20,12,10,0.55); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
-    border:1px solid rgba(184,147,61,0.35); padding:44px 40px; border-radius:2px;
+    max-width:560px; background:rgba(91,58,114,0.55); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+    border:1px solid var(--line); padding:44px 40px; border-radius:2px;
   }
   .feature-panel h2{color:var(--cream-100);}
   .feature-panel p{color:var(--cream-200); font-size:18px;}
@@ -395,24 +429,41 @@ nav.top-links a{
   }
   .feature-panel.panel-right{margin-left:auto;}
   @media (max-width:720px){
-    .bg-feature{min-height:520px; padding:60px 0;}
-    .feature-panel{padding:30px 26px; max-width:100%;}
+    .bg-feature{min-height:480px; padding:56px 0; background-position:center top;}
+    .feature-panel{padding:26px 22px; max-width:100%;}
+  }
+  @media (max-width:480px){
+    .bg-feature{min-height:420px;}
+    .feature-panel h2{font-size:24px;}
+    .feature-panel p{font-size:16px;}
   }
 
   /* ---- products ---- */
-  .products{background:var(--plum-950); color:var(--cream-100);}
-  .products h2{color:rgba(243,234,212,0.9); position:relative; z-index:2;}
+  .products{background:var(--cream-100); color:var(--ink-900);}
+  .products h2{color:var(--plum-900); position:relative; z-index:2;}
   .products .lede{position:relative; z-index:2;}
-  .products .lede{color:var(--cream-200); max-width:60ch; font-size:18px;}
+  .products .lede{color:var(--ink-900); opacity:0.75; max-width:60ch; font-size:18px;}
   .prod-grid{
-    margin-top:52px; display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:2px;
-    background:var(--gold-500); position:relative; z-index:2;
+    margin-top:52px; display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:28px;
+    position:relative; z-index:2;
   }
-  .prod{background:var(--plum-950); padding:0;}
+  .prod{background:transparent; padding:0;}
 
   /* ---- flip cards ---- */
   .flip-card{
-    perspective:1400px; cursor:pointer; height:500px; outline:none;
+    perspective:1400px; cursor:pointer; height:530px; outline:none;
+    box-shadow:0 14px 34px -18px rgba(58,42,34,0.28);
+    border:1px solid var(--gold-500);
+    border-radius:4px;
+    transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+  }
+  .flip-card:hover, .flip-card:focus-within{
+    transform:translateY(-6px);
+    box-shadow:0 24px 46px -18px rgba(60,38,80,0.4);
+    border-color:var(--plum-900);
+  }
+  .flip-card:focus-visible{
+    outline:2px solid var(--plum-900); outline-offset:4px;
   }
   .flip-inner{
     position:relative; width:100%; height:100%;
@@ -421,36 +472,45 @@ nav.top-links a{
   .flip-card.flipped .flip-inner{transform:rotateY(180deg);}
   .flip-front, .flip-back{
     position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden;
-    display:flex; flex-direction:column;
+    display:flex; flex-direction:column; background:var(--cream-100); border-radius:4px; overflow:hidden;
   }
-  .flip-front .img-slot{height:340px; flex:none;}
+  .flip-front .img-slot{height:340px; flex:none; border-radius:0; border:none; border-bottom:1px solid var(--line);}
   .flip-front .f-body{padding:22px 24px;}
-  .flip-front h3{font-size:20px; color:var(--gold-400); letter-spacing:0.03em;}
+  .flip-front h3{font-size:20px; color:var(--plum-900); letter-spacing:0.03em;}
   .flip-front .specs{
-    margin-top:10px; font-size:14.5px; color:var(--cream-200); font-family:'EB Garamond',serif;
+    margin-top:10px; font-size:14.5px; color:var(--ink-900); opacity:0.7; font-family:'EB Garamond',serif;
+  }
+  .flip-front .price{
+    margin-top:8px; font-family:'Cinzel',serif; font-size:17px; font-weight:600;
+    color:var(--plum-900); letter-spacing:0.03em;
+  }
+  .flip-back .price{
+    margin-top:6px; font-family:'Cinzel',serif; font-size:16px; font-weight:600;
+    color:var(--plum-900); letter-spacing:0.03em; display:block;
   }
   .flip-hint{
     display:block; margin-top:16px; font-family:'Cinzel',serif; font-size:11px; letter-spacing:0.08em;
-    color:rgba(243,234,212,0.55);
+    color:var(--oak-700);
   }
   .flip-back{
-    transform:rotateY(180deg); background:var(--plum-900);
-    justify-content:center; padding:30px 26px; border:1px solid rgba(184,147,61,0.35);
+    transform:rotateY(180deg);
+    justify-content:center; padding:30px 26px; border:1px solid var(--line);
   }
-  .flip-back h3{font-size:18px; color:var(--gold-400); letter-spacing:0.03em; margin-bottom:14px;}
-  .flip-back .desc{font-size:15.5px; line-height:1.55; color:var(--cream-200);}
+  .flip-back h3{font-size:18px; color:var(--plum-900); letter-spacing:0.03em; margin-bottom:14px;}
+  .flip-back .desc{font-size:15.5px; line-height:1.55; color:var(--ink-900); opacity:0.85;}
   .flip-back .status{
     margin-top:22px; font-family:'Cinzel',serif; font-size:12px; letter-spacing:0.08em;
-    color:var(--gold-400); display:inline-block; text-decoration:none; cursor:pointer;
-    transition:color .2s; border:1px solid var(--gold-500); padding:12px 18px; text-align:center;
+    color:var(--plum-900); display:inline-block; text-decoration:none; cursor:pointer;
+    transition:background .2s, color .2s; border:1px solid var(--plum-900); padding:12px 18px; text-align:center;
+    background:transparent;
   }
-  .flip-back .status:hover{background:var(--gold-500); color:var(--plum-950);}
-  @media (max-width:860px){ .prod-grid{grid-template-columns:1fr;} .flip-card{height:460px;} .flip-front .img-slot{height:260px;} }
+  .flip-back .status:hover{background:var(--plum-900); color:var(--cream-100);}
+  @media (max-width:860px){ .prod-grid{grid-template-columns:1fr; gap:22px;} .flip-card{height:500px;} .flip-front .img-slot{height:260px;} }
 
   /* ---- order ---- */
   .order{background:var(--cream-200);}
   .order .grid{display:grid; grid-template-columns:0.85fr 1.15fr; gap:60px;}
-  .order .side p{font-size:17px; color:#3a2f22;}
+  .order .side p{font-size:17px; color:var(--ink-900);}
   .order .side .contact{
     margin-top:28px; padding-top:24px; border-top:1px solid var(--line);
     font-family:'EB Garamond',serif; font-size:16px;
@@ -461,27 +521,36 @@ nav.top-links a{
     padding:36px; display:grid; gap:20px;
   }
   .field{display:grid; gap:8px;}
-  .field label{font-family:'Cinzel',serif; font-size:12.5px; letter-spacing:0.06em; color:var(--oak-700);}
+  .field label{font-family:'Cinzel',serif; font-size:12.5px; letter-spacing:0.06em; color:var(--plum-900);}
   .field input, .field select, .field textarea{
     font-family:'EB Garamond',serif; font-size:16.5px; padding:11px 13px;
     border:1px solid #c9bb9c; border-radius:2px; background:#fffdf8; color:var(--ink-900);
+    transition:border-color .2s ease, box-shadow .2s ease;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{
+    outline:none; border-color:var(--gold-500); box-shadow:0 0 0 3px rgba(194,154,82,0.2);
   }
   .field textarea{resize:vertical; min-height:90px;}
   .two-col{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
-  .fulfillment-choice{display:flex; gap:22px; align-items:center;}
+  .fulfillment-choice{display:flex; gap:22px; align-items:center; flex-wrap:wrap;}
   .fulfillment-choice label{
     display:flex; align-items:center; gap:8px; font-family:'EB Garamond',serif;
     font-size:16.5px; color:var(--ink-900); letter-spacing:0;
   }
+  @media (max-width:600px){
+    .fulfillment-choice{flex-direction:column; align-items:flex-start; gap:14px;}
+    .fulfillment-choice label{align-items:flex-start;}
+    .fulfillment-choice label input{margin-top:4px; flex:none;}
+  }
   #address-block{display:none;}
   #address-block.show{display:grid; gap:20px;}
   .submit-btn{
-    justify-self:start; margin-top:6px; background:var(--seal-700); color:var(--cream-100);
+    justify-self:start; margin-top:6px; background:var(--gold-500); color:var(--ink-900);
     border:none; padding:15px 34px; font-family:'Cinzel',serif; font-size:13.5px;
-    letter-spacing:0.08em; border-radius:2px; cursor:pointer;
+    letter-spacing:0.08em; border-radius:2px; cursor:pointer; font-weight:600;
   }
-  .submit-btn:hover{background:#96354a;}
-  .form-note{font-size:14px; color:#6b5c44; margin-top:-6px;}
+  .submit-btn:hover{background:var(--plum-900); color:var(--cream-100);}
+  .form-note{font-size:14px; color:rgba(58,42,34,0.72); margin-top:-6px;}
   @media (max-width:860px){ .order .grid{grid-template-columns:1fr;} .two-col{grid-template-columns:1fr;} form.order-form{padding:26px;} }
 
   /* ---- form submit states ---- */
@@ -492,53 +561,158 @@ nav.top-links a{
   }
   .form-status.visible{display:block;}
   .form-status.success{background:rgba(76,120,74,0.12); border:1px solid #4c784a; color:#2e4d2c;}
-  .form-status.error{background:rgba(124,37,54,0.1); border:1px solid var(--seal-700); color:var(--seal-700);}
+  .form-status.error{background:rgba(138,58,58,0.1); border:1px solid var(--error-700); color:var(--error-700);}
   form.order-form.is-hidden{display:none;}
   .order .grid #form-success, .order .grid #form-error{grid-column:2; margin-top:-20px;}
   @media (max-width:860px){ .order .grid #form-success, .order .grid #form-error{grid-column:1;} }
 
   /* ---- image placeholder slots ---- */
   .img-slot{
-    background-color:rgba(184,147,61,0.14);
+    background-color:rgba(167,122,78,0.28);
     background-size:cover; background-position:center;
-    border:1px dashed rgba(184,147,61,0.5); border-radius:3px;
+    border:1px solid rgba(194,154,82,0.45); border-radius:3px;
     display:flex; align-items:center; justify-content:center; text-align:center;
   }
-  .img-slot::after{
-    content:attr(data-label);
-    font-family:'Cinzel',serif; font-size:11px; letter-spacing:0.08em;
-    color:var(--oak-700); padding:6px;
-  }
-  .logo-slot::after{content:none;}
 
   /* ---- nav buy button ---- */
   .nav-cta{
-    background:var(--gold-500) !important; color:var(--plum-950) !important;
-    padding:9px 20px; border-radius:2px; letter-spacing:0.08em;
+    background:var(--gold-500) !important; color:var(--ink-900) !important;
+    padding:9px 20px; border-radius:2px; letter-spacing:0.08em; font-weight:600;
   }
   .nav-cta::after{display:none !important;}
   .nav-cta:hover{background:var(--gold-400) !important;}
 
-  /* ---- cta band ---- */
-  .cta-band{background:var(--plum-800); color:var(--cream-100); text-align:center;}
-  .cta-band h2{color:rgba(243,234,212,0.92); font-size:clamp(24px,3vw,32px);}
-  .cta-band .btn{margin-top:26px;}
-  footer{background:var(--plum-950); color:var(--cream-200); padding:56px 0 30px;}
+  /* ---- cart link + badges ---- */
+  .cart-link{position:relative; padding-right:4px;}
+  .cart-badge{
+    display:inline-flex; align-items:center; justify-content:center;
+    min-width:18px; height:18px; padding:0 4px; margin-left:6px;
+    background:var(--gold-500); color:var(--plum-950); border-radius:20px;
+    font-family:'Cinzel',serif; font-size:10.5px; font-weight:700; vertical-align:2px;
+  }
+  .cart-link::after{display:none !important;}
+  .mobile-menu .cart-link{border-bottom:1px solid rgba(194,154,82,0.25); padding-bottom:14px;}
+  .menu-toggle{position:relative;}
+  .menu-toggle .hamburger-badge{
+    position:absolute; top:-6px; right:-8px; margin-left:0;
+    min-width:16px; height:16px; font-size:9.5px; background:var(--gold-500); color:var(--plum-950);
+  }
+
+  /* ---- cart drawer ---- */
+  .cart-overlay{
+    position:fixed; inset:0; background:rgba(35,20,48,0.55); z-index:59;
+    opacity:0; pointer-events:none; transition:opacity .3s ease;
+  }
+  .cart-overlay.open{opacity:1; pointer-events:auto;}
+  .cart-drawer{
+    position:fixed; top:0; right:0; bottom:0; z-index:60;
+    width:min(400px, 92vw); background:var(--cream-100); color:var(--ink-900);
+    box-shadow:-24px 0 60px rgba(0,0,0,0.35);
+    display:flex; flex-direction:column;
+    transform:translateX(100%); transition:transform .35s ease;
+  }
+  .cart-drawer.open{transform:translateX(0);}
+  .cart-drawer-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 24px; border-bottom:1px solid var(--line); background:var(--plum-900); color:var(--cream-100);
+  }
+  .cart-drawer-head h3{font-size:19px; color:var(--cream-100);}
+  .cart-close{
+    background:none; border:none; color:var(--cream-100); font-size:26px; line-height:1;
+    cursor:pointer; padding:2px 6px;
+  }
+  .cart-items{flex:1; overflow-y:auto; padding:18px 24px;}
+  .cart-item{
+    display:grid; grid-template-columns:1fr auto; gap:4px 14px; align-items:center;
+    padding:16px 0; border-bottom:1px solid var(--line);
+  }
+  .cart-item .ci-name{font-family:'Cinzel',serif; font-size:14.5px; color:var(--plum-900); letter-spacing:0.02em;}
+  .cart-item .ci-price{font-size:14.5px; color:var(--ink-900); opacity:0.75; text-align:right;}
+  .cart-item .ci-controls{display:flex; align-items:center; gap:10px; grid-column:1/2;}
+  .cart-item .ci-remove{
+    grid-column:2/3; justify-self:end; background:none; border:none; color:var(--error-700);
+    font-family:'Cinzel',serif; font-size:11.5px; letter-spacing:0.06em; cursor:pointer; padding:4px;
+  }
+  .cart-empty-msg{padding:40px 24px; text-align:center; color:var(--ink-900); opacity:0.65; font-size:16px;}
+  .cart-footer{padding:20px 24px 24px; border-top:1px solid var(--line);}
+  .cart-total-row{
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:'Cinzel',serif; font-size:16px; color:var(--plum-900); margin-bottom:16px;
+  }
+  .cart-checkout{
+    width:100%; text-align:center; background:var(--gold-500); color:var(--ink-900); border:none;
+    padding:15px; font-family:'Cinzel',serif; font-size:13.5px; letter-spacing:0.08em;
+    border-radius:2px; cursor:pointer; font-weight:600;
+  }
+  .cart-checkout:hover{background:var(--plum-900); color:var(--cream-100);}
+  .cart-checkout[disabled]{opacity:0.55; cursor:not-allowed;}
+
+  /* ---- qty stepper + buy box under product cards ---- */
+  .buy-box{
+    margin-top:14px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  }
+  .qty-stepper{
+    display:flex; align-items:center; border:1px solid var(--gold-500); border-radius:2px; overflow:hidden;
+  }
+  .qty-btn{
+    background:var(--cream-200); border:none; width:34px; height:38px; cursor:pointer;
+    font-family:'Cinzel',serif; font-size:16px; color:var(--plum-900);
+  }
+  .qty-btn:hover{background:var(--gold-400);}
+  .qty-input{
+    width:42px; height:38px; text-align:center; border:none; border-left:1px solid var(--gold-500);
+    border-right:1px solid var(--gold-500); font-family:'EB Garamond',serif; font-size:16px;
+    color:var(--ink-900); background:#fffdf8;
+  }
+  .buy-btn{
+    flex:1; min-width:120px; background:var(--plum-900); color:var(--cream-100); border:1px solid var(--plum-900);
+    padding:11px 18px; font-family:'Cinzel',serif; font-size:13px; letter-spacing:0.08em;
+    border-radius:2px; cursor:pointer; font-weight:600; transition:background .2s ease;
+  }
+  .buy-btn:hover{background:var(--gold-500); border-color:var(--gold-500); color:var(--ink-900);}
+  .buy-btn.added{background:#4c784a; border-color:#4c784a;}
+
+  /* ---- order summary in checkout section ---- */
+  .order-summary{
+    background:var(--cream-100); border:1px solid var(--line); border-radius:4px;
+    padding:22px 24px; margin-bottom:24px;
+  }
+  .order-summary h3{font-size:16px; color:var(--plum-900); margin-bottom:14px;}
+  .order-summary .os-row{
+    display:flex; justify-content:space-between; gap:10px; font-size:15.5px;
+    padding:8px 0; border-bottom:1px solid var(--line);
+  }
+  .order-summary .os-total{
+    display:flex; justify-content:space-between; padding-top:14px; margin-top:6px;
+    font-family:'Cinzel',serif; font-size:15px; color:var(--plum-900);
+  }
+  .order-summary .os-empty{font-size:15.5px; opacity:0.75;}
+  .order-summary .os-edit{
+    display:inline-block; margin-top:14px; font-family:'Cinzel',serif; font-size:12px;
+    letter-spacing:0.06em; color:var(--plum-900); text-decoration:underline; cursor:pointer; background:none; border:none; padding:0;
+  }
+  .cart-error{
+    display:none; background:rgba(138,58,58,0.1); border:1px solid var(--error-700); color:var(--error-700);
+    padding:14px 16px; border-radius:2px; font-size:15px; margin-bottom:18px;
+  }
+  .cart-error.visible{display:block;}
+
+  footer{background:var(--plum-900); color:var(--cream-200); padding:56px 0 30px;}
   footer .grid{display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:40px;}
   footer .brandmark .img-slot{height:52px; width:52px;}
 .logo-slot{ height:44px; width:44px; flex:none; border:none; background-color:transparent; background-size:contain; background-repeat:no-repeat; background-position:center;}
 header.top.scrolled .logo-slot{height:34px; width:34px;}
-  .hero .figure .img-slot{aspect-ratio:4/5; box-shadow:0 30px 60px -20px rgba(0,0,0,0.6);}
+  .hero .figure .img-slot{aspect-ratio:4/5;}
   .story .grid .img-slot{aspect-ratio:4/5;}
   .heritage .grid .img-slot{aspect-ratio:4/3;}
   .process .grid .img-slot{aspect-ratio:4/3;}
-  .prod .img-slot{width:100%; height:340px; border-radius:0; border:none; border-bottom:1px solid rgba(184,147,61,0.35);}
+  .prod .img-slot{width:100%; height:340px; border-radius:0; border:none; border-bottom:1px solid rgba(194,154,82,0.35);}
   footer h4{font-family:'Cinzel',serif; font-size:13px; letter-spacing:0.08em; color:var(--gold-400); margin-bottom:14px;}
   footer p, footer div{font-size:15.5px;}
   footer .bottom{
-    margin-top:44px; padding-top:22px; border-top:1px solid rgba(204,169,79,0.2);
+    margin-top:44px; padding-top:22px; border-top:1px solid rgba(194,154,82,0.2);
     display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
-    font-size:13.5px; color:#a99a80;
+    font-size:13.5px; color:#bcab8c;
   }
   @media (max-width:720px){ footer .grid{grid-template-columns:1fr; gap:28px;} }
 
@@ -551,7 +725,7 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
   .age-gate[hidden]{display:none;}
   .age-gate .panel{
     max-width:420px; width:100%; text-align:center;
-    background:rgba(23,10,16,0.7); border:1px solid var(--gold-500); border-radius:3px;
+    background:rgba(91,58,114,0.78); border:1px solid var(--gold-500); border-radius:3px;
     padding:44px 34px; color:var(--cream-100);
     box-shadow:0 30px 70px -20px rgba(0,0,0,0.7);
   }
@@ -588,6 +762,24 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
 
 <div class="scroll-progress" id="scroll-progress"></div>
 
+<div class="cart-overlay" id="cart-overlay"></div>
+<aside class="cart-drawer" id="cart-drawer" aria-hidden="true">
+  <div class="cart-drawer-head">
+    <h3 data-sr>Korpa</h3>
+    <h3 data-en>Cart</h3>
+    <button type="button" class="cart-close" id="cart-close" aria-label="Zatvori">×</button>
+  </div>
+  <div class="cart-items" id="cart-items"></div>
+  <div class="cart-footer">
+    <div class="cart-total-row">
+      <span data-sr>Ukupno</span><span data-en>Total</span>
+      <span id="cart-total">0 din</span>
+    </div>
+    <button type="button" class="cart-checkout" id="cart-checkout" data-sr>Nastavi na porudžbinu</button>
+    <button type="button" class="cart-checkout" id="cart-checkout-en" data-en>Proceed to checkout</button>
+  </div>
+</aside>
+
 <header class="top">
   <div class="wrap">
 
@@ -604,8 +796,11 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
       <a href="#proizvodi" data-sr>Proizvodi</a>
       <a href="#proizvodi" data-en>Products</a>
 
+      <a href="#" class="cart-link" id="cart-link-desktop" data-sr>Korpa<span class="cart-badge" id="cart-badge-desktop" hidden>0</span></a>
+      <a href="#" class="cart-link" id="cart-link-desktop-en" data-en>Cart<span class="cart-badge" id="cart-badge-desktop-en" hidden>0</span></a>
+
       <a href="#poruci" class="nav-cta" data-sr>Poruči</a>
-      <a href="#poruci" class="nav-cta" data-en>Shop</a>
+      <a href="#poruci" class="nav-cta" data-en>Order</a>
     </nav>
 
     <div class="header-actions">
@@ -616,6 +811,7 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
 
       <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Meni" aria-expanded="false" aria-controls="mobile-menu">
         <span></span><span></span><span></span>
+        <span class="cart-badge hamburger-badge" id="hamburger-badge" hidden>0</span>
       </button>
     </div>
 
@@ -626,19 +822,23 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
     <a href="#prica" data-en>Our Story</a>
     <a href="#proizvodi" data-sr>Proizvodi</a>
     <a href="#proizvodi" data-en>Products</a>
+    <a href="#" class="cart-link" id="cart-link-mobile" data-sr>Korpa<span class="cart-badge" id="cart-badge-mobile" hidden>0</span></a>
+    <a href="#" class="cart-link" id="cart-link-mobile-en" data-en>Cart<span class="cart-badge" id="cart-badge-mobile-en" hidden>0</span></a>
     <a href="#poruci" class="mobile-cta" data-sr>Poruči</a>
     <a href="#poruci" class="mobile-cta" data-en>Order</a>
   </nav>
 </header>
 
 <section class="hero grain" id="pocetna">
+  <div class="mosaic-corner mosaic-tl"></div>
+  <div class="mosaic-corner mosaic-br"></div>
   <div class="wrap">
     <div class="hero-copy">
       <span class="kicker" data-sr>DESTILERIJA VASILJEVIĆ · SMEDEREVO</span>
       <span class="kicker" data-en>VASILJEVIĆ DISTILLERY · SMEDEREVO</span>
       <h1 data-sr>Rakija koja vraća u doba Nemanjića!</h1>
-      <h1 data-en>Brandy that brings back the age of the Nemanjić!</h1>
-      
+      <h1 data-en>A brandy that carries you back to the age of the Nemanjići.</h1>
+
       <div class="fruit-row">
         <span class="seg" data-sr>ŠLJIVA</span><span class="seg" data-en>PLUM</span>
         <span class="sep">⚜</span>
@@ -655,16 +855,13 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
     </div>
     <div class="figure">
       <div class="img-slot" data-label="HERO - flaša ispred bureta" style="background-image:url('images/hero.jpg.png');"></div>
-      <div class="seal">
-        <span class="seal-year">2019</span>
-        <span class="seal-label" data-sr>Originalna receptura</span>
-        <span class="seal-label" data-en>Original recipe</span>
-      </div>
     </div>
   </div>
 </section>
 
 <section class="stats grain">
+  <span class="pride-tag" data-sr>Ovim činjenicama se ponosimo</span>
+  <span class="pride-tag" data-en>These are the facts we're proud of</span>
   <div class="wrap">
     <div class="stat reveal">
       <div class="num">30</div>
@@ -678,8 +875,7 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
     </div>
     <div class="stat reveal">
       <div class="num num-text" data-sr>Porodična tradicija</div>
-      <div class="num" data-en>—</div>
-      <div class="lab" data-en>FAMILY TRADITION</div>
+      <div class="num num-text" data-en>Family Tradition</div>
     </div>
   </div>
 </section>
@@ -688,12 +884,12 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
   <div class="wrap">
     <div class="feature-panel panel-right reveal">
       <h2 data-sr>Kao Bordo, kao Toskana</h2>
-      <h2 data-en>The same parallel as Bordeaux and Tuscany.</h2>
+      <h2 data-en>Like Bordeaux. Like Tuscany.</h2>
       <div class="rule"></div>
       <p data-sr>Naša destilerija nalazi se u Despotovom gradu, na vratima Šumadije, u Smederevu i 45. severnoj paraleli. Na istoj širini nalaze se Bordo i Toskana, najpogodniji krajevi u Evropi za voćarstvo i vinogradarstvo. Ova oblast neguje tradiciju proizvodnje pića još od Srednjeg veka.</p>
-      <p data-en>Our distillery sits in the Despot's Town, at the gateway to Šumadija, in Smederevo — on the 45th parallel, the same line that connects Bordeaux and Tuscany. Surrounded by old vineyards and orchards of native plum and apricot, this region has always been suited to fruit and vine.</p>
+      <p data-en>Our distillery stands in the Despot's Town, at the gateway to Šumadija, in Smederevo — on the 45th parallel, the very line that runs through Bordeaux and Tuscany. Old vineyards and orchards of native plum and apricot surround us; this land has been shaping fruit and vine since the Middle Ages.</p>
       <span class="tag" data-sr>„Probajte - vraća u doba Nemanjića!“</span>
-      <span class="tag" data-en>“Taste it - it brings back the age of the Nemanjić.”</span>
+      <span class="tag" data-en>"Taste it — and step back into the age of the Nemanjići."</span>
     </div>
   </div>
 </section>
@@ -730,7 +926,7 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
     <p class="lede" data-sr>Pravimo ograničene serije u kojima je svaka flaša numerisana</p>
     <p class="lede" data-en>We don't repeat labels: limited batches where every bottle is numbered</p>
     <div class="prod-grid">
-      <div class="prod reveal">
+      <div class="prod reveal" data-product-id="sljivovica">
         <div class="flip-card" tabindex="0" role="button" aria-label="Limited Release Šljivovica">
           <div class="flip-inner">
             <div class="flip-front">
@@ -739,6 +935,7 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
                 <h3 data-sr>Limited Release Šljivovica</h3>
                 <h3 data-en>Limited Release Šljivovica</h3>
                 <div class="specs">45% alc. · 700 ml</div>
+                <div class="price">2.500 din</div>
                 <span class="flip-hint" data-sr>Klikni za detalje ↻</span>
                 <span class="flip-hint" data-en>Click for details ↻</span>
               </div>
@@ -747,14 +944,24 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
               <h3 data-sr>Limited Release Šljivovica</h3>
               <h3 data-en>Limited Release Šljivovica</h3>
               <p class="desc" data-sr>Naše najprepoznatljivije izdanje. Stara rakija koja je ležala između 2 i 4 godine u hrastovom buretu.</p>
-              <p class="desc" data-en>Our most recognizable release. Aged brandy that rested in the barrel for two to four years.</p>
-              <a class="status" href="#poruci" data-sr>Poruči - dostupno</a>
-              <a class="status" href="#poruci" data-en>Order - available</a>
+              <p class="desc" data-en>Our signature release. Aged brandy that rested two to four years in oak.</p>
+              <span class="price">2.500 din</span>
+              <a class="status" href="#poruci" data-sr>Dostupno</a>
+              <a class="status" href="#poruci" data-en>Available</a>
             </div>
           </div>
         </div>
+        <div class="buy-box">
+          <div class="qty-stepper">
+            <button type="button" class="qty-btn qty-minus" aria-label="Smanji količinu">−</button>
+            <input type="text" inputmode="numeric" class="qty-input" value="1" aria-label="Količina">
+            <button type="button" class="qty-btn qty-plus" aria-label="Povećaj količinu">+</button>
+          </div>
+          <button type="button" class="buy-btn" data-sr>Kupi</button>
+          <button type="button" class="buy-btn" data-en>Buy</button>
+        </div>
       </div>
-      <div class="prod reveal">
+      <div class="prod reveal" data-product-id="kajsija">
         <div class="flip-card" tabindex="0" role="button" aria-label="Limited Release Kajsija">
           <div class="flip-inner">
             <div class="flip-front">
@@ -763,22 +970,33 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
                 <h3 data-sr>Limited Release Kajsija</h3>
                 <h3 data-en>Limited Release Apricot</h3>
                 <div class="specs">42% alc. · 700 ml</div>
+                <div class="price">3.000 din</div>
                 <span class="flip-hint" data-sr>Klikni za detalje ↻</span>
                 <span class="flip-hint" data-en>Click for details ↻</span>
               </div>
             </div>
             <div class="flip-back">
               <h3 data-sr>Limited Release Kajsija</h3>
-              <h3 data-en>Limited Release Kajsija</h3>
+              <h3 data-en>Limited Release Apricot</h3>
               <p class="desc" data-sr>Rakija od kajsije, bez koštica i bez dodatog šećera. Miriše na bakinu kuću na selu</p>
               <p class="desc" data-en>Rounded apricot brandy, pit-free and with no added sugar. Smells like grandma's house in the countryside</p>
-              <a class="status" href="#poruci" data-sr>Poruči - dostupno</a>
-              <a class="status" href="#poruci" data-en>Order - available</a>
+              <span class="price">3.000 din</span>
+              <a class="status" href="#poruci" data-sr>Dostupno</a>
+              <a class="status" href="#poruci" data-en>Available</a>
             </div>
           </div>
         </div>
+        <div class="buy-box">
+          <div class="qty-stepper">
+            <button type="button" class="qty-btn qty-minus" aria-label="Smanji količinu">−</button>
+            <input type="text" inputmode="numeric" class="qty-input" value="1" aria-label="Količina">
+            <button type="button" class="qty-btn qty-plus" aria-label="Povećaj količinu">+</button>
+          </div>
+          <button type="button" class="buy-btn" data-sr>Kupi</button>
+          <button type="button" class="buy-btn" data-en>Buy</button>
+        </div>
       </div>
-      <div class="prod reveal">
+      <div class="prod reveal" data-product-id="suva-sljiva">
         <div class="flip-card" tabindex="0" role="button" aria-label="Suva Šljiva Limited Edition">
           <div class="flip-inner">
             <div class="flip-front">
@@ -787,22 +1005,33 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
                 <h3 data-sr>Suva Šljiva Limited Edition</h3>
                 <h3 data-en>Dry Plum Limited Edition</h3>
                 <div class="specs">42% alc. · 700 ml</div>
+                <div class="price">3.200 din</div>
                 <span class="flip-hint" data-sr>Klikni za detalje ↻</span>
                 <span class="flip-hint" data-en>Click for details ↻</span>
               </div>
             </div>
             <div class="flip-back">
               <h3 data-sr>Suva Šljiva Limited Edition</h3>
-              <h3 data-en>Suva Šljiva Limited Edition</h3>
+              <h3 data-en>Dry Plum Limited Edition</h3>
               <p class="desc" data-sr>Posebno izdanje zasnovano na Budin Barrel Šljivovici. Bogata notama kao Betovenova simfonija: Suva šljiva, crni čaj, barut, vanila... Proizvedena u ekskluzivnoj seriji, ne žuri na degustaciju. Čeka na posebne prilike.</p>
-              <p class="desc" data-en>A special edition based on Budin Barrel Šljivovica, enriched with notes of dried plum, black tea and blended barrel/vanilla notes. Wax-sealed and produced in an exclusive batch.</p>
+              <p class="desc" data-en>A special edition built on our Šljivovica, layered with notes like a Beethoven symphony: dried plum, black tea, gunpowder, vanilla... Produced in an exclusive batch, it isn't rushed to the glass — it waits for the occasions that deserve it.</p>
+              <span class="price">3.200 din</span>
               <a class="status" href="#poruci" data-sr>Poruči unapred</a>
-              <a class="status" href="#poruci" data-en>Order pre-order</a>
+              <a class="status" href="#poruci" data-en>Pre-order</a>
             </div>
           </div>
         </div>
+        <div class="buy-box">
+          <div class="qty-stepper">
+            <button type="button" class="qty-btn qty-minus" aria-label="Smanji količinu">−</button>
+            <input type="text" inputmode="numeric" class="qty-input" value="1" aria-label="Količina">
+            <button type="button" class="qty-btn qty-plus" aria-label="Povećaj količinu">+</button>
+          </div>
+          <button type="button" class="buy-btn" data-sr>Kupi</button>
+          <button type="button" class="buy-btn" data-en>Buy</button>
+        </div>
       </div>
-      <div class="prod reveal">
+      <div class="prod reveal" data-product-id="degustacija">
         <div class="flip-card" tabindex="0" role="button" aria-label="Degustaciona kolekcija">
           <div class="flip-inner">
             <div class="flip-front">
@@ -811,6 +1040,7 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
                 <h3 data-sr>Degustaciona kolekcija</h3>
                 <h3 data-en>Tasting Collection</h3>
                 <div class="specs">40–45% alc. · 50 ml</div>
+                <div class="price">800 din</div>
                 <span class="flip-hint" data-sr>Klikni za detalje ↻</span>
                 <span class="flip-hint" data-en>Click for details ↻</span>
               </div>
@@ -820,10 +1050,20 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
               <h3 data-en>Tasting Collection</h3>
               <p class="desc" data-sr>Kolekcija čokanja Šljivovice, Kajsije i Suve šljive. Mali format za prvo upoznavanje sa Budin Barrel proizvodima. Idealan za degustacije, poklone ili kao pratilac uz veća izdanja iz naše kolekcije.</p>
               <p class="desc" data-en>A collection of shot glasses of Šljivovica, Kajsija and Suva Šljiva. A small format for a first introduction to Budin Barrel. Ideal for tastings, gifts, or as a companion to the larger bottles in our range.</p>
-              <a class="status" href="#poruci" data-sr>Poruči - dostupno</a>
-              <a class="status" href="#poruci" data-en>Order - available</a>
+              <span class="price">800 din</span>
+              <a class="status" href="#poruci" data-sr>Dostupno</a>
+              <a class="status" href="#poruci" data-en>Available</a>
             </div>
           </div>
+        </div>
+        <div class="buy-box">
+          <div class="qty-stepper">
+            <button type="button" class="qty-btn qty-minus" aria-label="Smanji količinu">−</button>
+            <input type="text" inputmode="numeric" class="qty-input" value="1" aria-label="Količina">
+            <button type="button" class="qty-btn qty-plus" aria-label="Povećaj količinu">+</button>
+          </div>
+          <button type="button" class="buy-btn" data-sr>Kupi</button>
+          <button type="button" class="buy-btn" data-en>Buy</button>
         </div>
       </div>
     </div>
@@ -860,15 +1100,6 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
   </div>
 </section>
 
-<section class="cta-band grain">
-  <div class="wrap">
-    <h2 data-sr>Spremni?</h2>
-    <h2 data-en>Ready?</h2>
-    <a class="btn solid" href="#poruci" data-sr>Poruči sada</a>
-    <a class="btn solid" href="#poruci" data-en>Order here</a>
-  </div>
-</section>
-
 <section class="order" id="poruci">
   <div class="wrap grid">
     <div class="side reveal-left">
@@ -883,14 +1114,29 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
         <div>📞 <a href="tel:+381641220429" style="text-decoration:none;">+381 64 122 04 29</a></div>
         <div data-sr>📷 Instagram: <a href="https://instagram.com/budinbarrel" target="_blank" rel="noopener" style="text-decoration:none;">@budinbarrel</a></div>
         <div data-en>📷 Instagram: <a href="https://instagram.com/budinbarrel" target="_blank" rel="noopener" style="text-decoration:none;">@budinbarrel</a></div>
-        <div data-sr style="margin-top:14px; color:#8a7657;">Napitak sadrži alkohol. Prodaja isključivo licima 18+.</div>
-        <div data-en style="margin-top:14px; color:#8a7657;">Contains alcohol. Sold only to persons 18+.</div>
+        <div data-sr style="margin-top:14px; color:rgba(58,42,34,0.72);">Napitak sadrži alkohol. Prodaja isključivo licima 18+.</div>
+        <div data-en style="margin-top:14px; color:rgba(58,42,34,0.72);">Contains alcohol. Sold only to persons 18+.</div>
       </div>
     </div>
 
     <form class="order-form reveal-right" name="porudzbina" method="POST" data-netlify="true" netlify-honeypot="bb-field">
       <input type="hidden" name="form-name" value="porudzbina">
+      <input type="hidden" name="stavke" id="field-stavke">
+      <input type="hidden" name="ukupno" id="field-ukupno">
       <p style="display:none;"><label>Ne popunjavaj ovo: <input name="bb-field"></label></p>
+
+      <div class="order-summary" id="order-summary">
+        <h3 data-sr>Vaša porudžbina</h3>
+        <h3 data-en>Your order</h3>
+        <div id="order-summary-body"></div>
+        <button type="button" class="os-edit" data-sr id="os-edit">Izmeni korpu</button>
+        <button type="button" class="os-edit" data-en id="os-edit-en">Edit cart</button>
+      </div>
+
+      <div class="cart-error" id="cart-error">
+        <span data-sr>Korpa je prazna. Dodajte bar jedan proizvod pre slanja porudžbine.</span>
+        <span data-en>Your cart is empty. Add at least one product before sending your order.</span>
+      </div>
 
       <div class="field">
         <label data-sr>Ime i prezime</label><label data-en>Full name</label>
@@ -905,28 +1151,6 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
         <div class="field">
           <label data-sr>Instagram / email (opciono)</label><label data-en>Instagram / email (optional)</label>
           <input type="text" name="kontakt">
-        </div>
-      </div>
-
-      <div class="two-col">
-        <div class="field">
-          <label data-sr>Proizvod</label><label data-en>Product</label>
-          <select name="proizvod" required>
-            <option value="" data-sr>Izaberi proizvod</option>
-            <option value="" data-en selected disabled>Choose a product</option>
-            <option data-sr value="Limited Release Šljivovica 700ml">Limited Release Šljivovica, 700ml</option>
-            <option data-en value="Limited Release Šljivovica 700ml">Limited Release Šljivovica, 700ml</option>
-            <option data-sr value="Limited Release Kajsija 700ml">Limited Release Kajsija, 700ml</option>
-            <option data-en value="Limited Release Kajsija 700ml">Limited Release Kajsija, 700ml</option>
-            <option data-sr value="Suva Šljiva Limited Edition 700ml">Suva Šljiva Limited Edition, 700ml</option>
-            <option data-en value="Suva Šljiva Limited Edition 700ml">Dry Plum Limited Edition, 700ml</option>
-            <option data-sr value="Degustaciona kolekcija 50ml">Degustaciona kolekcija, 50ml</option>
-            <option data-en value="Degustaciona kolekcija 50ml">Tasting Collection, 50ml</option>
-          </select>
-        </div>
-        <div class="field">
-          <label data-sr>Količina</label><label data-en>Quantity</label>
-          <input type="number" name="kolicina" min="1" value="1" required>
         </div>
       </div>
 
@@ -1003,15 +1227,254 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
 
 <script>
   var addressBlock = document.getElementById('address-block');
+  var gradInput = addressBlock.querySelector('input[name="grad"]');
+  var adresaInput = addressBlock.querySelector('input[name="adresa"]');
   document.querySelectorAll('input[name="nacin"]').forEach(function(r){
     r.addEventListener('change', function(){
       if (document.querySelector('input[name="nacin"]:checked').value === 'Dostava') {
         addressBlock.classList.add('show');
+        gradInput.required = true;
+        adresaInput.required = true;
       } else {
         addressBlock.classList.remove('show');
+        gradInput.required = false;
+        adresaInput.required = false;
       }
     });
   });
+
+  /* ---- CART ---- */
+  var PRODUCTS = {
+    'sljivovica':   { sr: 'Limited Release Šljivovica, 700ml',      en: 'Limited Release Šljivovica, 700ml', price: 2500 },
+    'kajsija':      { sr: 'Limited Release Kajsija, 700ml',         en: 'Limited Release Apricot, 700ml',    price: 3000 },
+    'suva-sljiva':  { sr: 'Suva Šljiva Limited Edition, 700ml',     en: 'Dry Plum Limited Edition, 700ml',   price: 3200 },
+    'degustacija':  { sr: 'Degustaciona kolekcija, 50ml',           en: 'Tasting Collection, 50ml',          price: 800 }
+  };
+  var CART_KEY = 'bb-cart';
+  var cart = [];
+
+  function loadCart(){
+    try {
+      var raw = localStorage.getItem(CART_KEY);
+      cart = raw ? JSON.parse(raw) : [];
+      if (!Array.isArray(cart)) cart = [];
+    } catch (e) { cart = []; }
+  }
+  function saveCart(){
+    try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch (e) {}
+  }
+  function currentLang(){
+    return document.documentElement.getAttribute('data-lang') === 'en' ? 'en' : 'sr';
+  }
+  function fmtPrice(n){
+    return n.toLocaleString('sr-RS') + ' din';
+  }
+  function cartCount(){
+    return cart.reduce(function(sum, item){ return sum + item.qty; }, 0);
+  }
+  function cartTotal(){
+    return cart.reduce(function(sum, item){
+      var p = PRODUCTS[item.id];
+      return sum + (p ? p.price * item.qty : 0);
+    }, 0);
+  }
+  function addToCart(id, qty){
+    qty = Math.max(1, parseInt(qty, 10) || 1);
+    var existing = cart.find(function(i){ return i.id === id; });
+    if (existing) { existing.qty += qty; } else { cart.push({ id: id, qty: qty }); }
+    saveCart();
+    renderAll();
+  }
+  function removeFromCart(id){
+    cart = cart.filter(function(i){ return i.id !== id; });
+    saveCart();
+    renderAll();
+  }
+  function setCartQty(id, qty){
+    qty = parseInt(qty, 10) || 0;
+    if (qty <= 0) { removeFromCart(id); return; }
+    var existing = cart.find(function(i){ return i.id === id; });
+    if (existing) { existing.qty = qty; saveCart(); renderAll(); }
+  }
+
+  function renderBadges(){
+    var count = cartCount();
+    var badges = document.querySelectorAll('.cart-badge');
+    badges.forEach(function(b){
+      b.textContent = count;
+      b.hidden = count === 0;
+    });
+  }
+
+  function renderDrawer(){
+    var itemsBox = document.getElementById('cart-items');
+    var totalBox = document.getElementById('cart-total');
+    var checkoutBtns = document.querySelectorAll('.cart-checkout');
+    var lang = currentLang();
+    itemsBox.innerHTML = '';
+    if (cart.length === 0) {
+      var msg = document.createElement('div');
+      msg.className = 'cart-empty-msg';
+      msg.textContent = lang === 'en' ? 'Your cart is empty.' : 'Korpa je prazna.';
+      itemsBox.appendChild(msg);
+      checkoutBtns.forEach(function(b){ b.disabled = true; });
+    } else {
+      cart.forEach(function(item){
+        var p = PRODUCTS[item.id];
+        if (!p) return;
+        var row = document.createElement('div');
+        row.className = 'cart-item';
+        row.innerHTML =
+          '<div class="ci-name">' + (lang === 'en' ? p.en : p.sr) + '</div>' +
+          '<div class="ci-price">' + fmtPrice(p.price * item.qty) + '</div>' +
+          '<div class="ci-controls">' +
+            '<div class="qty-stepper">' +
+              '<button type="button" class="qty-btn ci-minus" aria-label="Smanji">−</button>' +
+              '<input type="text" inputmode="numeric" class="qty-input ci-qty" value="' + item.qty + '" aria-label="Količina">' +
+              '<button type="button" class="qty-btn ci-plus" aria-label="Povećaj">+</button>' +
+            '</div>' +
+          '</div>' +
+          '<button type="button" class="ci-remove" data-id="' + item.id + '">' + (lang === 'en' ? 'Remove' : 'Ukloni') + '</button>';
+        row.querySelector('.ci-minus').addEventListener('click', function(){ setCartQty(item.id, item.qty - 1); });
+        row.querySelector('.ci-plus').addEventListener('click', function(){ setCartQty(item.id, item.qty + 1); });
+        row.querySelector('.ci-qty').addEventListener('change', function(e){ setCartQty(item.id, e.target.value); });
+        row.querySelector('.ci-remove').addEventListener('click', function(){ removeFromCart(item.id); });
+        itemsBox.appendChild(row);
+      });
+      checkoutBtns.forEach(function(b){ b.disabled = false; });
+    }
+    totalBox.textContent = fmtPrice(cartTotal());
+  }
+
+  function renderOrderSummary(){
+    var body = document.getElementById('order-summary-body');
+    var errorBox = document.getElementById('cart-error');
+    var lang = currentLang();
+    var stavkeField = document.getElementById('field-stavke');
+    var ukupnoField = document.getElementById('field-ukupno');
+    if (!body) return;
+    body.innerHTML = '';
+    if (cart.length === 0) {
+      var empty = document.createElement('div');
+      empty.className = 'os-empty';
+      empty.textContent = lang === 'en'
+        ? 'Your cart is empty — add a product first.'
+        : 'Korpa je prazna — prvo dodajte proizvod.';
+      body.appendChild(empty);
+      stavkeField.value = '';
+      ukupnoField.value = '';
+      return;
+    }
+    var lines = [];
+    cart.forEach(function(item){
+      var p = PRODUCTS[item.id];
+      if (!p) return;
+      var name = lang === 'en' ? p.en : p.sr;
+      var row = document.createElement('div');
+      row.className = 'os-row';
+      row.innerHTML = '<span>' + name + ' × ' + item.qty + '</span><span>' + fmtPrice(p.price * item.qty) + '</span>';
+      body.appendChild(row);
+      lines.push(p.sr + ' x' + item.qty + ' (' + fmtPrice(p.price * item.qty) + ')');
+    });
+    var totalRow = document.createElement('div');
+    totalRow.className = 'os-total';
+    totalRow.innerHTML = '<span>' + (lang === 'en' ? 'Total' : 'Ukupno') + '</span><span>' + fmtPrice(cartTotal()) + '</span>';
+    body.appendChild(totalRow);
+    stavkeField.value = lines.join('; ');
+    ukupnoField.value = fmtPrice(cartTotal());
+    errorBox.classList.remove('visible');
+  }
+
+  function renderAll(){
+    renderBadges();
+    renderDrawer();
+    renderOrderSummary();
+  }
+
+  function openCart(){
+    document.getElementById('cart-drawer').classList.add('open');
+    document.getElementById('cart-overlay').classList.add('open');
+    document.getElementById('cart-drawer').setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeCart(){
+    document.getElementById('cart-drawer').classList.remove('open');
+    document.getElementById('cart-overlay').classList.remove('open');
+    document.getElementById('cart-drawer').setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.cart-link').forEach(function(link){
+    link.addEventListener('click', function(e){
+      e.preventDefault();
+      var mobileMenu = document.getElementById('mobile-menu');
+      var toggle = document.getElementById('menu-toggle');
+      if (mobileMenu.classList.contains('open')) {
+        mobileMenu.classList.remove('open');
+        toggle.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+      openCart();
+    });
+  });
+  document.getElementById('cart-close').addEventListener('click', closeCart);
+  document.getElementById('cart-overlay').addEventListener('click', closeCart);
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') { closeCart(); }
+  });
+  document.querySelectorAll('.cart-checkout').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if (cart.length === 0) return;
+      closeCart();
+      renderOrderSummary();
+      document.getElementById('poruci').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+  var editCartBtns = document.querySelectorAll('#os-edit, #os-edit-en');
+  editCartBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){ openCart(); });
+  });
+
+  /* wire quantity steppers + Kupi buttons on product cards */
+  document.querySelectorAll('.prod[data-product-id]').forEach(function(prod){
+    var id = prod.getAttribute('data-product-id');
+    var qtyInput = prod.querySelector('.buy-box .qty-input');
+    var minus = prod.querySelector('.buy-box .qty-minus');
+    var plus = prod.querySelector('.buy-box .qty-plus');
+    var buyBtns = prod.querySelectorAll('.buy-btn');
+
+    function currentQty(){ return Math.max(1, parseInt(qtyInput.value, 10) || 1); }
+
+    minus.addEventListener('click', function(){ qtyInput.value = Math.max(1, currentQty() - 1); });
+    plus.addEventListener('click', function(){ qtyInput.value = currentQty() + 1; });
+    qtyInput.addEventListener('change', function(){ qtyInput.value = currentQty(); });
+
+    buyBtns.forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        addToCart(id, currentQty());
+        var original = btn.textContent;
+        btn.classList.add('added');
+        btn.textContent = currentLang() === 'en' ? 'Added ✓' : 'Dodato ✓';
+        setTimeout(function(){
+          btn.classList.remove('added');
+          btn.textContent = original;
+        }, 1400);
+      });
+    });
+
+    /* flip-back status buttons also add one unit to cart */
+    prod.querySelectorAll('.flip-back .status').forEach(function(statusLink){
+      statusLink.addEventListener('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        addToCart(id, 1);
+      });
+    });
+  });
+
+  loadCart();
+  renderAll();
 
   /* order form: submit via fetch to Netlify Forms, no page reload */
   (function(){
@@ -1031,6 +1494,15 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
       e.preventDefault();
       errorBox.classList.remove('visible');
       successBox.classList.remove('visible');
+
+      if (cart.length === 0) {
+        var cartErrorBox = document.getElementById('cart-error');
+        cartErrorBox.classList.add('visible');
+        cartErrorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      renderOrderSummary();
       submitBtns.forEach(function(b){ b.disabled = true; });
 
       var formData = new FormData(form);
@@ -1045,6 +1517,11 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
         if (response.ok) {
           form.reset();
           addressBlock.classList.remove('show');
+          gradInput.required = false;
+          adresaInput.required = false;
+          cart = [];
+          saveCart();
+          renderAll();
           form.classList.add('is-hidden');
           successBox.classList.add('visible');
           successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1064,6 +1541,7 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
       document.documentElement.setAttribute('data-lang', lang);
       document.querySelectorAll('.lang-switch button').forEach(function(b){ b.classList.remove('active'); });
       btn.classList.add('active');
+      renderAll();
     });
   });
 
