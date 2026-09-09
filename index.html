@@ -128,6 +128,7 @@ html[data-lang="en"] [data-en-block]{
   align-items:center;
   gap:16px;
   min-width:0;
+  text-decoration:none;
 }
 
 .brandmark span{
@@ -286,25 +287,25 @@ nav.top-links a{
     overflow:hidden;
   }
   .hero .mosaic-corner{
-    position:absolute; z-index:1; width:560px; height:560px; pointer-events:none;
+    position:absolute; z-index:1; width:620px; height:620px; pointer-events:none;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Crect width='20' height='20' x='0' y='0' fill='%23a9a9a9' opacity='0.55'/%3E%3Crect width='20' height='20' x='20' y='20' fill='%23a9a9a9' opacity='0.55'/%3E%3Crect width='20' height='20' x='20' y='0' fill='%23d6d6d6' opacity='0.4'/%3E%3Crect width='20' height='20' x='0' y='20' fill='%23d6d6d6' opacity='0.4'/%3E%3Crect width='40' height='40' fill='none' stroke='%23808080' stroke-width='0.6'/%3E%3C/svg%3E");
     background-repeat:repeat; background-size:40px 40px;
-    opacity:0.4;
+    opacity:0.62;
   }
   .hero .mosaic-tl{
-    top:-100px; left:-120px;
-    -webkit-mask-image:radial-gradient(circle at top left, black 0%, black 22%, transparent 62%);
-    mask-image:radial-gradient(circle at top left, black 0%, black 22%, transparent 62%);
+    top:-140px; left:-160px;
+    -webkit-mask-image:radial-gradient(circle at top left, black 0%, black 38%, transparent 78%);
+    mask-image:radial-gradient(circle at top left, black 0%, black 38%, transparent 78%);
   }
   .hero .mosaic-br{
-    bottom:-100px; right:-120px;
-    -webkit-mask-image:radial-gradient(circle at bottom right, black 0%, black 22%, transparent 62%);
-    mask-image:radial-gradient(circle at bottom right, black 0%, black 22%, transparent 62%);
+    bottom:-140px; right:-160px;
+    -webkit-mask-image:radial-gradient(circle at bottom right, black 0%, black 38%, transparent 78%);
+    mask-image:radial-gradient(circle at bottom right, black 0%, black 38%, transparent 78%);
   }
   @media (max-width:720px){
-    .hero .mosaic-corner{width:340px; height:340px; background-size:28px 28px;}
-    .hero .mosaic-tl{top:-50px; left:-60px;}
-    .hero .mosaic-br{bottom:-50px; right:-60px;}
+    .hero .mosaic-corner{width:380px; height:380px; background-size:30px 30px;}
+    .hero .mosaic-tl{top:-70px; left:-80px;}
+    .hero .mosaic-br{bottom:-70px; right:-80px;}
   }
   .hero .wrap{
     display:grid; grid-template-columns:1fr 1.1fr; align-items:center;
@@ -331,13 +332,18 @@ nav.top-links a{
   .btn.outline{background:transparent; color:var(--cream-100);}
   .hero .figure{position:relative;}
   .hero .figure::before{
-    content:''; position:absolute; inset:-12%; z-index:0;
-    background:radial-gradient(ellipse at center, rgba(216,186,108,0.22) 0%, rgba(216,186,108,0.06) 45%, transparent 72%);
+    content:''; position:absolute; inset:-16%; z-index:0;
+    background:radial-gradient(ellipse at center, rgba(216,186,108,0.28) 0%, rgba(216,186,108,0.08) 45%, transparent 72%);
     pointer-events:none;
   }
   .hero .figure img, .hero .figure .img-slot{
     position:relative; z-index:1;
-    border-radius:3px; box-shadow:0 30px 60px -20px rgba(0,0,0,0.6);
+    -webkit-mask-image:radial-gradient(ellipse 76% 80% at center, black 58%, transparent 100%);
+    mask-image:radial-gradient(ellipse 76% 80% at center, black 58%, transparent 100%);
+  }
+  .hero .figure::after{
+    content:''; position:absolute; inset:0; z-index:2; pointer-events:none;
+    background:radial-gradient(ellipse 76% 80% at center, transparent 40%, rgba(60,38,80,0.85) 100%);
   }
   @media (max-width:860px){
     .hero .wrap{grid-template-columns:1fr; padding-top:96px;}
@@ -361,22 +367,32 @@ nav.top-links a{
     background:var(--cream-200); color:var(--ink-900); position:relative; z-index:2;
     border-top:1px solid var(--line); border-bottom:1px solid var(--line);
   }
+  .stats .pride-tag{
+    display:block; text-align:center; font-family:'Cinzel',serif; font-style:italic;
+    font-size:14px; letter-spacing:0.06em; color:var(--plum-900); opacity:0.85;
+    padding:26px 28px 0;
+  }
   .stats .wrap{
     display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px; text-align:center;
-    padding:44px 28px;
+    padding:30px 28px 46px;
   }
   .stats .stat .num{
-    font-family:'Cinzel',serif; font-size:40px; line-height:1;
+    font-family:'Cinzel',serif; font-size:56px; line-height:1; font-weight:700;
     color:var(--plum-900);
+    text-shadow:0 1px 0 rgba(91,58,114,0.25), 0 0 22px rgba(91,58,114,0.18);
+    -webkit-text-stroke:0.5px var(--plum-900);
   }
   .stats .stat .num.num-text{
-    font-size:34px; line-height:1.15; font-weight:600;
+    font-size:32px; line-height:1.2; font-weight:700; -webkit-text-stroke:0.3px var(--plum-900);
   }
   .stats .stat .lab{
-    margin-top:10px; font-family:'Cinzel',serif; font-size:13px; letter-spacing:0.1em;
-    color:var(--ink-900); opacity:0.72;
+    margin-top:12px; font-family:'Cinzel',serif; font-size:14px; letter-spacing:0.12em;
+    color:var(--ink-900); opacity:0.8; font-weight:600;
   }
-  @media (max-width:720px){ .stats .wrap{grid-template-columns:1fr; gap:26px; padding:36px 28px;} }
+  @media (max-width:720px){
+    .stats .wrap{grid-template-columns:1fr; gap:30px; padding:26px 28px 40px;}
+    .stats .stat .num{font-size:48px;}
+  }
 
   /* ---- process ---- */
   .process{background:var(--cream-200);}
@@ -398,8 +414,7 @@ nav.top-links a{
   }
   .bg-feature::before{
     content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
-    background:linear-gradient(180deg, rgba(60,38,80,0.32), rgba(60,38,80,0.68));
-    opacity:1; mix-blend-mode:normal;
+    background:linear-gradient(180deg, rgba(20,12,10,0.04), rgba(20,12,10,0.22));
   }
   .bg-feature .wrap{position:relative; z-index:2; width:100%;}
   .feature-panel{
@@ -517,10 +532,15 @@ nav.top-links a{
   }
   .field textarea{resize:vertical; min-height:90px;}
   .two-col{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
-  .fulfillment-choice{display:flex; gap:22px; align-items:center;}
+  .fulfillment-choice{display:flex; gap:22px; align-items:center; flex-wrap:wrap;}
   .fulfillment-choice label{
     display:flex; align-items:center; gap:8px; font-family:'EB Garamond',serif;
     font-size:16.5px; color:var(--ink-900); letter-spacing:0;
+  }
+  @media (max-width:600px){
+    .fulfillment-choice{flex-direction:column; align-items:flex-start; gap:14px;}
+    .fulfillment-choice label{align-items:flex-start;}
+    .fulfillment-choice label input{margin-top:4px; flex:none;}
   }
   #address-block{display:none;}
   #address-block.show{display:grid; gap:20px;}
@@ -682,7 +702,7 @@ nav.top-links a{
   footer .brandmark .img-slot{height:52px; width:52px;}
 .logo-slot{ height:44px; width:44px; flex:none; border:none; background-color:transparent; background-size:contain; background-repeat:no-repeat; background-position:center;}
 header.top.scrolled .logo-slot{height:34px; width:34px;}
-  .hero .figure .img-slot{aspect-ratio:4/5; box-shadow:0 30px 60px -20px rgba(0,0,0,0.6);}
+  .hero .figure .img-slot{aspect-ratio:4/5;}
   .story .grid .img-slot{aspect-ratio:4/5;}
   .heritage .grid .img-slot{aspect-ratio:4/3;}
   .process .grid .img-slot{aspect-ratio:4/3;}
@@ -840,6 +860,8 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
 </section>
 
 <section class="stats grain">
+  <span class="pride-tag" data-sr>Ovim činjenicama se ponosimo</span>
+  <span class="pride-tag" data-en>These are the facts we're proud of</span>
   <div class="wrap">
     <div class="stat reveal">
       <div class="num">30</div>
