@@ -18,9 +18,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
-    --plum-900:#5a2a4d;
-    --plum-950:#412038;
-    --plum-800:#7a4169;
+    --plum-900:#5b3a72;
+    --plum-950:#3c2650;
+    --plum-800:#7d5698;
     --gold-500:#c29a52;
     --gold-400:#d8bc8a;
     --cream-100:#faf7f2;
@@ -114,7 +114,7 @@ html[data-lang="en"] [data-en-block]{
     transition:background .35s ease, padding .3s ease, box-shadow .35s ease, backdrop-filter .35s ease;
   }
   header.top.scrolled{
-    background:rgba(65,32,56,0.94); backdrop-filter:blur(8px);
+    background:rgba(91,58,114,0.94); backdrop-filter:blur(8px);
     padding:13px 0; box-shadow:0 10px 26px rgba(0,0,0,0.35);
   }
   .top .wrap{
@@ -195,7 +195,7 @@ nav.top-links a{
   .mobile-menu{
     display:none;
     position:fixed; top:0; left:0; right:0; z-index:39;
-    background:rgba(65,32,56,0.97); backdrop-filter:blur(10px);
+    background:rgba(91,58,114,0.97); backdrop-filter:blur(10px);
     padding:104px 28px 40px; flex-direction:column; gap:24px;
     transform:translateY(-100%); transition:transform .35s ease;
   }
@@ -285,6 +285,27 @@ nav.top-links a{
     color:var(--cream-100);
     overflow:hidden;
   }
+  .hero .mosaic-corner{
+    position:absolute; z-index:1; width:560px; height:560px; pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Crect width='20' height='20' x='0' y='0' fill='%23a9a9a9' opacity='0.55'/%3E%3Crect width='20' height='20' x='20' y='20' fill='%23a9a9a9' opacity='0.55'/%3E%3Crect width='20' height='20' x='20' y='0' fill='%23d6d6d6' opacity='0.4'/%3E%3Crect width='20' height='20' x='0' y='20' fill='%23d6d6d6' opacity='0.4'/%3E%3Crect width='40' height='40' fill='none' stroke='%23808080' stroke-width='0.6'/%3E%3C/svg%3E");
+    background-repeat:repeat; background-size:40px 40px;
+    opacity:0.4;
+  }
+  .hero .mosaic-tl{
+    top:-100px; left:-120px;
+    -webkit-mask-image:radial-gradient(circle at top left, black 0%, black 22%, transparent 62%);
+    mask-image:radial-gradient(circle at top left, black 0%, black 22%, transparent 62%);
+  }
+  .hero .mosaic-br{
+    bottom:-100px; right:-120px;
+    -webkit-mask-image:radial-gradient(circle at bottom right, black 0%, black 22%, transparent 62%);
+    mask-image:radial-gradient(circle at bottom right, black 0%, black 22%, transparent 62%);
+  }
+  @media (max-width:720px){
+    .hero .mosaic-corner{width:340px; height:340px; background-size:28px 28px;}
+    .hero .mosaic-tl{top:-50px; left:-60px;}
+    .hero .mosaic-br{bottom:-50px; right:-60px;}
+  }
   .hero .wrap{
     display:grid; grid-template-columns:1fr 1.1fr; align-items:center;
     gap:56px; padding-top:130px; padding-bottom:90px; position:relative; z-index:2;
@@ -318,37 +339,12 @@ nav.top-links a{
     position:relative; z-index:1;
     border-radius:3px; box-shadow:0 30px 60px -20px rgba(0,0,0,0.6);
   }
-  .hero .figure .seal{
-    position:absolute; z-index:2; bottom:-14px; left:-14px; width:104px; height:104px;
-    background:var(--plum-950);
-    border-radius:50%; display:flex; flex-direction:column; align-items:center;
-    justify-content:center; text-align:center; color:var(--gold-400);
-    font-family:'Cinzel',serif; letter-spacing:0.07em;
-    box-shadow:0 14px 32px rgba(0,0,0,0.45); border:1px solid var(--gold-500);
-    padding:10px;
-  }
-  .hero .figure .seal::before{
-    content:''; position:absolute; inset:6px;
-    border:1px solid rgba(194,154,82,0.35); border-radius:50%;
-  }
-  .hero .figure .seal .seal-year{
-    font-size:19px; font-weight:700; line-height:1; margin-bottom:5px;
-    color:var(--gold-400);
-  }
-  .hero .figure .seal .seal-label{
-    font-size:8.5px; line-height:1.35;
-  }
   @media (max-width:860px){
     .hero .wrap{grid-template-columns:1fr; padding-top:96px;}
     .hero .figure{max-width:380px; margin:0 auto;}
   }
   @media (max-width:480px){
     .hero .figure{max-width:260px;}
-    .hero .figure .seal{
-      width:78px; height:78px; bottom:-10px; left:-6px; padding:6px;
-    }
-    .hero .figure .seal .seal-year{font-size:15px; margin-bottom:3px;}
-    .hero .figure .seal .seal-label{font-size:7px; line-height:1.25;}
   }
 
   /* ---- fruit segments ---- */
@@ -402,12 +398,12 @@ nav.top-links a{
   }
   .bg-feature::before{
     content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
-    background:linear-gradient(180deg, rgba(65,32,56,0.28), rgba(65,32,56,0.62));
+    background:linear-gradient(180deg, rgba(60,38,80,0.32), rgba(60,38,80,0.68));
     opacity:1; mix-blend-mode:normal;
   }
   .bg-feature .wrap{position:relative; z-index:2; width:100%;}
   .feature-panel{
-    max-width:560px; background:rgba(65,32,56,0.55); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+    max-width:560px; background:rgba(91,58,114,0.55); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
     border:1px solid var(--line); padding:44px 40px; border-radius:2px;
   }
   .feature-panel h2{color:var(--cream-100);}
@@ -448,7 +444,7 @@ nav.top-links a{
   }
   .flip-card:hover, .flip-card:focus-within{
     transform:translateY(-6px);
-    box-shadow:0 24px 46px -18px rgba(90,42,77,0.4);
+    box-shadow:0 24px 46px -18px rgba(60,38,80,0.4);
     border-color:var(--plum-900);
   }
   .flip-card:focus-visible{
@@ -584,7 +580,7 @@ nav.top-links a{
 
   /* ---- cart drawer ---- */
   .cart-overlay{
-    position:fixed; inset:0; background:rgba(28,14,24,0.55); z-index:59;
+    position:fixed; inset:0; background:rgba(35,20,48,0.55); z-index:59;
     opacity:0; pointer-events:none; transition:opacity .3s ease;
   }
   .cart-overlay.open{opacity:1; pointer-events:auto;}
@@ -709,7 +705,7 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
   .age-gate[hidden]{display:none;}
   .age-gate .panel{
     max-width:420px; width:100%; text-align:center;
-    background:rgba(65,32,56,0.75); border:1px solid var(--gold-500); border-radius:3px;
+    background:rgba(91,58,114,0.78); border:1px solid var(--gold-500); border-radius:3px;
     padding:44px 34px; color:var(--cream-100);
     box-shadow:0 30px 70px -20px rgba(0,0,0,0.7);
   }
@@ -814,6 +810,8 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
 </header>
 
 <section class="hero grain" id="pocetna">
+  <div class="mosaic-corner mosaic-tl"></div>
+  <div class="mosaic-corner mosaic-br"></div>
   <div class="wrap">
     <div class="hero-copy">
       <span class="kicker" data-sr>DESTILERIJA VASILJEVIĆ · SMEDEREVO</span>
@@ -837,11 +835,6 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
     </div>
     <div class="figure">
       <div class="img-slot" data-label="HERO - flaša ispred bureta" style="background-image:url('images/hero.jpg.png');"></div>
-      <div class="seal">
-        <span class="seal-year">2019</span>
-        <span class="seal-label" data-sr>Originalna receptura</span>
-        <span class="seal-label" data-en>Original recipe</span>
-      </div>
     </div>
   </div>
 </section>
