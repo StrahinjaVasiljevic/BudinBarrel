@@ -275,6 +275,10 @@ nav.top-links a{
   .prod-grid .prod.reveal:nth-child(1){transition-delay:0s;}
   .prod-grid .prod.reveal:nth-child(2){transition-delay:.14s;}
   .prod-grid .prod.reveal:nth-child(3){transition-delay:.28s;}
+  .prod-grid .prod.reveal:nth-child(4){transition-delay:.42s;}
+  .prod-grid .prod.reveal:nth-child(5){transition-delay:.56s;}
+  .prod-grid .prod.reveal:nth-child(6){transition-delay:.7s;}
+  .prod-grid .prod.reveal:nth-child(7){transition-delay:.84s;}
   @media (prefers-reduced-motion: reduce){
     .reveal, .reveal-left, .reveal-right{opacity:1 !important; transform:none !important; transition:none !important;}
   }
@@ -399,6 +403,18 @@ nav.top-links a{
   .process .grid{display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center;}
   .process img{border-radius:3px;}
   .process p{color:var(--ink-900); font-size:18px;}
+  .process .photo-pair{position:relative; margin-bottom:52px;}
+  .process .photo-pair .img-slot.p1{aspect-ratio:4/3; width:100%;}
+  .process .photo-pair .img-slot.p2{
+    position:absolute; width:56%; aspect-ratio:4/3;
+    right:-22px; bottom:-52px;
+    border:6px solid var(--cream-200);
+    box-shadow:0 20px 40px -16px rgba(58,42,34,0.35);
+  }
+  @media (max-width:860px){
+    .process .photo-pair{margin-bottom:64px;}
+    .process .photo-pair .img-slot.p2{width:62%; right:-10px; bottom:-40px;}
+  }
   @media (max-width:860px){ .process .grid{grid-template-columns:1fr;}
     .process .grid > *:first-child{order:2;} }
 
@@ -532,6 +548,8 @@ nav.top-links a{
   }
   .field textarea{resize:vertical; min-height:90px;}
   .two-col{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  .three-col{display:grid; grid-template-columns:1fr 1.4fr 0.7fr; gap:20px;}
+  @media (max-width:600px){ .three-col{grid-template-columns:1fr;} }
   .fulfillment-choice{display:flex; gap:22px; align-items:center; flex-wrap:wrap;}
   .fulfillment-choice label{
     display:flex; align-items:center; gap:8px; font-family:'EB Garamond',serif;
@@ -544,6 +562,12 @@ nav.top-links a{
   }
   #address-block{display:none;}
   #address-block.show{display:grid; gap:20px;}
+  .consent{
+    display:flex; align-items:flex-start; gap:10px; font-family:'EB Garamond',serif;
+    font-size:15px; color:var(--ink-900); opacity:0.85; line-height:1.5; cursor:pointer;
+  }
+  .consent input{margin-top:4px; flex:none; width:16px; height:16px; accent-color:var(--plum-900);}
+  .consent a{color:var(--plum-900); text-decoration:underline; text-underline-offset:2px;}
   .submit-btn{
     justify-self:start; margin-top:6px; background:var(--gold-500); color:var(--ink-900);
     border:none; padding:15px 34px; font-family:'Cinzel',serif; font-size:13.5px;
@@ -664,6 +688,16 @@ nav.top-links a{
     border-right:1px solid var(--gold-500); font-family:'EB Garamond',serif; font-size:16px;
     color:var(--ink-900); background:#fffdf8;
   }
+  @keyframes bb-glow-pulse{
+    0%, 100%{ box-shadow:0 0 0 0 rgba(194,154,82,0.55); }
+    50%{ box-shadow:0 0 0 9px rgba(194,154,82,0); }
+  }
+  .buy-box.glow .qty-stepper{
+    border-color:var(--plum-900); animation:bb-glow-pulse 0.7s ease-out 3;
+  }
+  .buy-box.glow .buy-btn{
+    animation:bb-glow-pulse 0.7s ease-out 3;
+  }
   .buy-btn{
     flex:1; min-width:120px; background:var(--plum-900); color:var(--cream-100); border:1px solid var(--plum-900);
     padding:11px 18px; font-family:'Cinzel',serif; font-size:13px; letter-spacing:0.08em;
@@ -715,6 +749,8 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
     font-size:13.5px; color:#bcab8c;
   }
   @media (max-width:720px){ footer .grid{grid-template-columns:1fr; gap:28px;} }
+  .legal-links a{color:#bcab8c; text-decoration:underline; text-underline-offset:2px;}
+  .legal-links a:hover{color:var(--gold-400);}
 
   /* ---- age gate ---- */
   .age-gate{
@@ -882,7 +918,7 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
 
 <section class="bg-feature" id="prica" data-label="MAPA — Bordo, Toskana, Smederevo" style="background-image:url('images/mapa.jpg.png');">
   <div class="wrap">
-    <div class="feature-panel panel-right reveal">
+    <div class="feature-panel reveal">
       <h2 data-sr>Kao Bordo, kao Toskana</h2>
       <h2 data-en>Like Bordeaux. Like Tuscany.</h2>
       <div class="rule"></div>
@@ -896,7 +932,7 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
 
 <section class="bg-feature" data-label="BURAD - grupa flaša i bure" style="background-image:url('images/burad.jpg.jpeg');">
   <div class="wrap">
-    <div class="feature-panel reveal-left">
+    <div class="feature-panel panel-right reveal-left">
       <h2 data-sr>Single Barrel proizvodnja</h2>
       <h2 data-en>Barrels that remember the craft</h2>
       <div class="rule"></div>
@@ -908,10 +944,13 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
 
 <section class="process" id="proces">
   <div class="wrap grid">
-    <div class="img-slot reveal-left" data-label="PROCES - voćnjaci i destilerija" style="background-image:url('images/proces.jpg.jpg');"></div>
+    <div class="photo-pair reveal-left">
+      <div class="img-slot p1" data-label="PROCES - voćnjaci i destilerija" style="background-image:url('images/proces.jpg.webp');"></div>
+      <div class="img-slot p2" data-label="PROCES - detalj" style="background-image:url('images/proces2.jpg.jpg');"></div>
+    </div>
     <div class="copy reveal-right">
-      <h2 data-sr>Od voćnjaka do restorana</h2>
-      <h2 data-en>From orchard to restaurant</h2>
+      <h2 data-sr>Proces</h2>
+      <h2 data-en>The Process</h2>
       <div class="rule"></div>
       <p data-sr>Sve počinje berbom u našim voćnjacima i vinogradima. Nastavlja se destilacijom i dugim sazrevanjem u hrastovim buradima. Vreme, priroda i zanatska preciznost oblikuju rakiju iza koje stavljamo ime naše porodice</p>
       <p data-en>It all starts with hand-picked fruit from our orchards and vineyards. It continues with distillation and long aging in oak barrels. Time, nature and craftsmanship shape the brandy behind which we proudly stand our name.</p>
@@ -1068,6 +1107,112 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
       </div>
     </div>
 
+      <div class="prod reveal" data-product-id="cokanj-sljiva">
+        <div class="flip-card" tabindex="0" role="button" aria-label="Čokanj Šljiva">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <div class="img-slot" data-label="Čokanj Šljiva — etiketa" style="background-image:url('images/proizvod-5.jpg');"></div>
+              <div class="f-body">
+                <h3 data-sr>Čokanj Šljiva</h3>
+                <h3 data-en>Šljiva Shot</h3>
+                <div class="specs">45% alc. · 50 ml</div>
+                <div class="price">250 din</div>
+                <span class="flip-hint" data-sr>Klikni za detalje ↻</span>
+                <span class="flip-hint" data-en>Click for details ↻</span>
+              </div>
+            </div>
+            <div class="flip-back">
+              <h3 data-sr>Čokanj Šljiva</h3>
+              <h3 data-en>Šljiva Shot</h3>
+              <p class="desc" data-sr>Isti čokanj naše najprepoznatljivije Šljivovice, u malom formatu za brzu degustaciju. Stara rakija, odležala između 2 i 4 godine u hrastovom buretu.</p>
+              <p class="desc" data-en>Our signature Šljivovica, poured into a single shot glass. Aged brandy that rested two to four years in oak.</p>
+              <span class="price">250 din</span>
+              <a class="status" href="#poruci" data-sr>Dostupno</a>
+              <a class="status" href="#poruci" data-en>Available</a>
+            </div>
+          </div>
+        </div>
+        <div class="buy-box">
+          <div class="qty-stepper">
+            <button type="button" class="qty-btn qty-minus" aria-label="Smanji količinu">−</button>
+            <input type="text" inputmode="numeric" class="qty-input" value="1" aria-label="Količina">
+            <button type="button" class="qty-btn qty-plus" aria-label="Povećaj količinu">+</button>
+          </div>
+          <button type="button" class="buy-btn" data-sr>Kupi</button>
+          <button type="button" class="buy-btn" data-en>Buy</button>
+        </div>
+      </div>
+      <div class="prod reveal" data-product-id="cokanj-kajsija">
+        <div class="flip-card" tabindex="0" role="button" aria-label="Čokanj Kajsija">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <div class="img-slot" data-label="Čokanj Kajsija — etiketa" style="background-image:url('images/proizvod-6.jpg');"></div>
+              <div class="f-body">
+                <h3 data-sr>Čokanj Kajsija</h3>
+                <h3 data-en>Kajsija Shot</h3>
+                <div class="specs">42% alc. · 50 ml</div>
+                <div class="price">270 din</div>
+                <span class="flip-hint" data-sr>Klikni za detalje ↻</span>
+                <span class="flip-hint" data-en>Click for details ↻</span>
+              </div>
+            </div>
+            <div class="flip-back">
+              <h3 data-sr>Čokanj Kajsija</h3>
+              <h3 data-en>Kajsija Shot</h3>
+              <p class="desc" data-sr>Isti čokanj naše Kajsije — bez koštica, bez dodatog šećera. Jedan gutljaj koji miriše na bakinu kuću na selu.</p>
+              <p class="desc" data-en>Our Kajsija brandy, pit-free and with no added sugar, poured into a single shot glass. Smells like grandma's house in the countryside.</p>
+              <span class="price">270 din</span>
+              <a class="status" href="#poruci" data-sr>Dostupno</a>
+              <a class="status" href="#poruci" data-en>Available</a>
+            </div>
+          </div>
+        </div>
+        <div class="buy-box">
+          <div class="qty-stepper">
+            <button type="button" class="qty-btn qty-minus" aria-label="Smanji količinu">−</button>
+            <input type="text" inputmode="numeric" class="qty-input" value="1" aria-label="Količina">
+            <button type="button" class="qty-btn qty-plus" aria-label="Povećaj količinu">+</button>
+          </div>
+          <button type="button" class="buy-btn" data-sr>Kupi</button>
+          <button type="button" class="buy-btn" data-en>Buy</button>
+        </div>
+      </div>
+      <div class="prod reveal" data-product-id="cokanj-suva-sljiva">
+        <div class="flip-card" tabindex="0" role="button" aria-label="Čokanj Suva Šljiva">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <div class="img-slot" data-label="Čokanj Suva Šljiva — etiketa" style="background-image:url('images/proizvod-7.jpg');"></div>
+              <div class="f-body">
+                <h3 data-sr>Čokanj Suva Šljiva</h3>
+                <h3 data-en>Suva Šljiva Shot</h3>
+                <div class="specs">40% alc. · 50 ml</div>
+                <div class="price">300 din</div>
+                <span class="flip-hint" data-sr>Klikni za detalje ↻</span>
+                <span class="flip-hint" data-en>Click for details ↻</span>
+              </div>
+            </div>
+            <div class="flip-back">
+              <h3 data-sr>Čokanj Suva Šljiva</h3>
+              <h3 data-en>Suva Šljiva Shot</h3>
+              <p class="desc" data-sr>Čokanj naše ekskluzivne Suve Šljive — iste bogate note kao u velikoj flaši: suva šljiva, crni čaj, barut, vanila. Idealan format da prvi put upoznate ovo izdanje.</p>
+              <p class="desc" data-en>A shot of our exclusive Suva Šljiva edition — the same rich notes as the full bottle: dried plum, black tea, gunpowder, vanilla. The easiest way to first meet this release.</p>
+              <span class="price">300 din</span>
+              <a class="status" href="#poruci" data-sr>Dostupno</a>
+              <a class="status" href="#poruci" data-en>Available</a>
+            </div>
+          </div>
+        </div>
+        <div class="buy-box">
+          <div class="qty-stepper">
+            <button type="button" class="qty-btn qty-minus" aria-label="Smanji količinu">−</button>
+            <input type="text" inputmode="numeric" class="qty-input" value="1" aria-label="Količina">
+            <button type="button" class="qty-btn qty-plus" aria-label="Povećaj količinu">+</button>
+          </div>
+          <button type="button" class="buy-btn" data-sr>Kupi</button>
+          <button type="button" class="buy-btn" data-en>Buy</button>
+        </div>
+      </div>
+
     <!-- 
       DA DODAŠ NOVI PROIZVOD: kopiraj ceo ".prod reveal" blok ispod i nalepi ga unutar .prod-grid,
       pa promeni sliku, naziv, specifikacije i opis (front i back verzija istog teksta). Grid se sam širi/skuplja.
@@ -1162,14 +1307,18 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
         </div>
       </div>
 
-      <div class="two-col" id="address-block">
+      <div class="three-col" id="address-block">
         <div class="field">
           <label data-sr>Grad</label><label data-en>City</label>
           <input type="text" name="grad">
         </div>
         <div class="field">
-          <label data-sr>Adresa</label><label data-en>Address</label>
-          <input type="text" name="adresa">
+          <label data-sr>Ulica</label><label data-en>Street</label>
+          <input type="text" name="ulica">
+        </div>
+        <div class="field">
+          <label data-sr>Broj</label><label data-en>No.</label>
+          <input type="text" name="broj">
         </div>
       </div>
 
@@ -1180,6 +1329,12 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
 
       <p class="form-note" data-sr>Dobićete potvrdu porudžbine putem ostavljenih kontakt-podataka</p>
       <p class="form-note" data-en>You will receive an order confirmation via the contact details you provided</p>
+
+      <label class="consent">
+        <input type="checkbox" name="saglasnost" value="Da" required>
+        <span data-sr>Slažem se sa <a href="uslovi-koriscenja.html" target="_blank" rel="noopener">Uslovima korišćenja</a> i <a href="politika-privatnosti.html" target="_blank" rel="noopener">Politikom privatnosti</a>.</span>
+        <span data-en>I agree to the <a href="uslovi-koriscenja.html" target="_blank" rel="noopener">Terms of Use</a> and <a href="politika-privatnosti.html" target="_blank" rel="noopener">Privacy Policy</a>.</span>
+      </label>
 
       <button class="submit-btn" type="submit" data-sr>Pošalji porudžbinu</button>
       <button class="submit-btn" type="submit" data-en>Send order</button>
@@ -1219,6 +1374,11 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
     <div class="bottom">
       <div data-sr>© 2026 Budin Barrel · Destilerija Vasiljević</div>
       <div data-en>© 2026 Budin Barrel · Vasiljević Distillery</div>
+      <div class="legal-links">
+        <a href="uslovi-koriscenja.html" data-sr>Uslovi korišćenja</a><a href="uslovi-koriscenja.html" data-en>Terms of Use</a>
+        <span aria-hidden="true"> · </span>
+        <a href="politika-privatnosti.html" data-sr>Politika privatnosti</a><a href="politika-privatnosti.html" data-en>Privacy Policy</a>
+      </div>
       <div data-sr>Prekomerno konzumiranje alkohola štetno je po zdravlje. 18+</div>
       <div data-en>Excessive alcohol consumption is harmful to health. 18+</div>
     </div>
@@ -1228,17 +1388,20 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
 <script>
   var addressBlock = document.getElementById('address-block');
   var gradInput = addressBlock.querySelector('input[name="grad"]');
-  var adresaInput = addressBlock.querySelector('input[name="adresa"]');
+  var ulicaInput = addressBlock.querySelector('input[name="ulica"]');
+  var brojInput = addressBlock.querySelector('input[name="broj"]');
   document.querySelectorAll('input[name="nacin"]').forEach(function(r){
     r.addEventListener('change', function(){
       if (document.querySelector('input[name="nacin"]:checked').value === 'Dostava') {
         addressBlock.classList.add('show');
         gradInput.required = true;
-        adresaInput.required = true;
+        ulicaInput.required = true;
+        brojInput.required = true;
       } else {
         addressBlock.classList.remove('show');
         gradInput.required = false;
-        adresaInput.required = false;
+        ulicaInput.required = false;
+        brojInput.required = false;
       }
     });
   });
@@ -1248,7 +1411,10 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
     'sljivovica':   { sr: 'Limited Release Šljivovica, 700ml',      en: 'Limited Release Šljivovica, 700ml', price: 2500 },
     'kajsija':      { sr: 'Limited Release Kajsija, 700ml',         en: 'Limited Release Apricot, 700ml',    price: 3000 },
     'suva-sljiva':  { sr: 'Suva Šljiva Limited Edition, 700ml',     en: 'Dry Plum Limited Edition, 700ml',   price: 3200 },
-    'degustacija':  { sr: 'Degustaciona kolekcija, 50ml',           en: 'Tasting Collection, 50ml',          price: 800 }
+    'degustacija':  { sr: 'Degustaciona kolekcija, 50ml',           en: 'Tasting Collection, 50ml',          price: 800 },
+    'cokanj-sljiva':      { sr: 'Čokanj Šljiva, 50ml',        en: 'Šljiva Shot, 50ml',       price: 250 },
+    'cokanj-kajsija':     { sr: 'Čokanj Kajsija, 50ml',       en: 'Kajsija Shot, 50ml',       price: 270 },
+    'cokanj-suva-sljiva': { sr: 'Čokanj Suva Šljiva, 50ml',   en: 'Suva Šljiva Shot, 50ml',   price: 300 }
   };
   var CART_KEY = 'bb-cart';
   var cart = [];
@@ -1463,12 +1629,18 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
       });
     });
 
-    /* flip-back status buttons also add one unit to cart */
+    /* flip-back status buttons draw attention to the qty + Kupi controls below, instead of adding straight to cart */
+    var buyBox = prod.querySelector('.buy-box');
     prod.querySelectorAll('.flip-back .status').forEach(function(statusLink){
       statusLink.addEventListener('click', function(e){
         e.preventDefault();
         e.stopPropagation();
-        addToCart(id, 1);
+        buyBox.classList.remove('glow');
+        void buyBox.offsetWidth; /* restart animation if clicked again */
+        buyBox.classList.add('glow');
+        buyBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        qtyInput.focus({ preventScroll: true });
+        setTimeout(function(){ buyBox.classList.remove('glow'); }, 2200);
       });
     });
   });
@@ -1518,7 +1690,8 @@ header.top.scrolled .logo-slot{height:34px; width:34px;}
           form.reset();
           addressBlock.classList.remove('show');
           gradInput.required = false;
-          adresaInput.required = false;
+          ulicaInput.required = false;
+          brojInput.required = false;
           cart = [];
           saveCart();
           renderAll();
